@@ -28,7 +28,7 @@ class TableListOfGameCell: UITableViewCell {
         
     }
     
-    public func config(game: Game, logoOfGame: UIImage) {
+    public func config(game: Game, logoOfGame: UIImage?) {
         
         name.text = game.name
         

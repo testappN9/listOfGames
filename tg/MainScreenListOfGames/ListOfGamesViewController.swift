@@ -32,8 +32,7 @@ class ListOfGamesViewController: UIViewController {
         return !text.isEmpty
     }
     
-    var arrayOfLogo = [UIImage]()
-    var arrayOfIndexLogoForSearch = [Int]()
+    var dictionaryOfLogo = [Int : UIImage]()
     
     struct Properties {
         static let cellName = "ListOfGamesViewCell"
@@ -104,7 +103,9 @@ class ListOfGamesViewController: UIViewController {
                     readyImage = UIImage(data: data as Data)
                 }
             }
-            arrayOfLogo.append(readyImage!)
+            
+            guard let id = item.id else { continue }
+            dictionaryOfLogo[id] = readyImage
         }
         
         tableListOfGame.reloadData()
@@ -124,10 +125,18 @@ extension ListOfGamesViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableListOfGame.dequeueReusableCell(withIdentifier: "cellTableListOfGame", for: indexPath) as! TableListOfGameCell
         
         if searchIsNotEmpty {
-            cell.config(game: resultsOfSearch[indexPath.row], logoOfGame: arrayOfLogo[arrayOfIndexLogoForSearch[indexPath.row]])
+            
+            let id = resultsOfSearch[indexPath.row].id ?? 0
+            let image = dictionaryOfLogo[id]
+            
+            cell.config(game: resultsOfSearch[indexPath.row], logoOfGame: image)
             
         } else {
-            cell.config(game: gameList[indexPath.row], logoOfGame: arrayOfLogo.isEmpty ? UIImage(named: "dice")! : arrayOfLogo[indexPath.row] )
+            
+            let id = gameList[indexPath.row].id ?? 0
+            let image = dictionaryOfLogo[id]
+            
+            cell.config(game: gameList[indexPath.row], logoOfGame: image )
         }
         
         return cell
@@ -153,27 +162,10 @@ extension ListOfGamesViewController: UISearchResultsUpdating {
 
     func filtration(_ text: String) {
         
-        arrayOfIndexLogoForSearch = []
-        var arrayOfIndex = [Bool]()
-        
         resultsOfSearch = gameList.filter({ (game: Game) in
-             
-            let result = game.name?.lowercased().contains(text.lowercased()) ?? false
-            
-            if result {
-                arrayOfIndex.append(true)
-            } else {
-                arrayOfIndex.append(false)
-            }
-    
-            return result
+            return game.name?.lowercased().contains(text.lowercased()) ?? false
         })
         
-        for (index, value) in arrayOfIndex.enumerated() {
-            if value {
-                arrayOfIndexLogoForSearch.append(index)
-            }
-        }
         tableListOfGame.reloadData()
     }
 }
