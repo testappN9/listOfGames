@@ -22,26 +22,13 @@ class TableListOfGameCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-        
-        
     }
     
     public func config(game: Game, logoOfGame: UIImage?) {
         
         name.text = game.name
         
-//        if let backImage = game.backgroundImage {
-//            if let data = NSData(contentsOf: NSURL(string: backImage)! as URL) {
-//                logo.image = UIImage(data: data as Data)
-//            }
-//        }
-        
         logo.image = logoOfGame
-        
-        
-        
         
         guard let released = game.released, let rate = game.rating else {return}
         rating.text = "\(rate)" //String(rate)

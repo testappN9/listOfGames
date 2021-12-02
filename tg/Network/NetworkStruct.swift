@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct FromServer: Codable {
+struct GamesManager: Codable {
     var count: Int?
     var results: [Game]?
     var description: String?
 }
 
 struct Game: Codable, Equatable {
-    var id: Int?
+    var id: Int
     var name: String?
     var rating: Float?
     var backgroundImage: String?
@@ -39,7 +39,7 @@ struct Game: Codable, Equatable {
      init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try? container.decodeIfPresent(Int.self, forKey: .id)
+        self.id = try container.decode(Int.self, forKey: .id)
         self.name = try? container.decodeIfPresent(String.self, forKey: .name)
         self.rating = try? container.decodeIfPresent(Float.self, forKey: .rating)
         self.backgroundImage = try? container.decode(String.self, forKey: .backgroundImage)
@@ -52,7 +52,7 @@ struct Game: Codable, Equatable {
 }
 
 
-extension FromServer {
+extension GamesManager {
     
     func gameDescription() -> String {
         

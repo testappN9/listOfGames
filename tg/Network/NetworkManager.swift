@@ -12,12 +12,12 @@ class NetworkManager {
     static let networkManager: NetworkManager = NetworkManager()
 
     
-    func getDataFromServer(_ link: URL, complitionHandler: @escaping (FromServer) -> Void)  {
+    func getDataFromServer(_ link: URL, complitionHandler: @escaping (GamesManager) -> Void)  {
 
         let session = URLSession.shared.dataTask(with: link) { (data, response, error) in
             do {
     //                let json = try JSONSerialization.jsonObject(with: data!, options: [])
-                let product: FromServer! = try JSONDecoder().decode(FromServer.self, from: data!)
+                let product: GamesManager! = try JSONDecoder().decode(GamesManager.self, from: data!)
                     
                 complitionHandler(product)
             }

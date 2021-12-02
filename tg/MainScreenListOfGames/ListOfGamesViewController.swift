@@ -104,7 +104,7 @@ class ListOfGamesViewController: UIViewController {
                 }
             }
             
-            guard let id = item.id else { continue }
+            let id = item.id
             dictionaryOfLogo[id] = readyImage
         }
         
@@ -126,14 +126,14 @@ extension ListOfGamesViewController: UITableViewDelegate, UITableViewDataSource{
         
         if searchIsNotEmpty {
             
-            let id = resultsOfSearch[indexPath.row].id ?? 0
+            let id = resultsOfSearch[indexPath.row].id
             let image = dictionaryOfLogo[id]
             
             cell.config(game: resultsOfSearch[indexPath.row], logoOfGame: image)
             
         } else {
             
-            let id = gameList[indexPath.row].id ?? 0
+            let id = gameList[indexPath.row].id
             let image = dictionaryOfLogo[id]
             
             cell.config(game: gameList[indexPath.row], logoOfGame: image )
