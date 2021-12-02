@@ -48,8 +48,8 @@ class ListOfGamesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "List of games"
         searchControllerSettings()
-        
         receiveDataFromServer()
        // registerListOfGame()
         registerTableListOfGame()

@@ -13,5 +13,6 @@ class CollectionScreenshotsCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
     }
 }
