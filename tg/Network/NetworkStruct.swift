@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GamesManager: Codable {
+struct GamesModel: Codable {
     var count: Int?
     var results: [Game]?
     var description: String?
@@ -52,7 +52,7 @@ struct Game: Codable, Equatable {
 }
 
 
-extension GamesManager {
+extension GamesModel {
     
     func gameDescription() -> String {
         

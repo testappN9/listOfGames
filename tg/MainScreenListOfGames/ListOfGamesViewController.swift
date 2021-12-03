@@ -19,6 +19,7 @@ class ListOfGamesViewController: UIViewController {
         didSet {
             DispatchQueue.main.async {
                 self.loadLogoOfGames()
+                self.resultsOfSearch = self.gameList
                 //self.listOfGames.reloadData()
                 self.tableListOfGame.reloadData()
             }
@@ -118,26 +119,15 @@ extension ListOfGamesViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return searchIsNotEmpty ? resultsOfSearch.count : gameList.count
+        return resultsOfSearch.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableListOfGame.dequeueReusableCell(withIdentifier: "cellTableListOfGame", for: indexPath) as! TableListOfGameCell
         
-        if searchIsNotEmpty {
-            
-            let id = resultsOfSearch[indexPath.row].id
-            let image = dictionaryOfLogo[id]
-            
-            cell.config(game: resultsOfSearch[indexPath.row], logoOfGame: image)
-            
-        } else {
-            
-            let id = gameList[indexPath.row].id
-            let image = dictionaryOfLogo[id]
-            
-            cell.config(game: gameList[indexPath.row], logoOfGame: image )
-        }
+        let id = resultsOfSearch[indexPath.row].id
+        let image = dictionaryOfLogo[id]
+        cell.config(game: resultsOfSearch[indexPath.row], logoOfGame: image)
         
         return cell
     }
@@ -147,7 +137,7 @@ extension ListOfGamesViewController: UITableViewDelegate, UITableViewDataSource{
         let mainStory = UIStoryboard (name: "Main", bundle: nil)
         if let vcAboutApp = mainStory.instantiateViewController(identifier: "aboutApp") as? AboutGameViewController {
             
-            vcAboutApp.game = searchIsNotEmpty ? resultsOfSearch[indexPath.row] : gameList[indexPath.row]
+            vcAboutApp.game = resultsOfSearch[indexPath.row]
             navigationController?.pushViewController(vcAboutApp, animated: true)
         }
     }
@@ -156,7 +146,15 @@ extension ListOfGamesViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension ListOfGamesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        filtration(searchController.searchBar.text!)
+        
+        guard let text = searchController.searchBar.text else { return }
+        
+        if !text.isEmpty {
+            filtration(searchController.searchBar.text!)
+        } else {
+            resultsOfSearch = gameList
+            tableListOfGame.reloadData()
+        }
     }
     
 
