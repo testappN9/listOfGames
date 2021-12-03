@@ -100,8 +100,7 @@ class ListOfGamesViewController: UIViewController {
                 }
             }
             
-            let id = item.id
-            dictionaryOfLogo[id] = readyImage
+            dictionaryOfLogo[item.id] = readyImage
         }
         
         tableListOfGame.reloadData()
@@ -145,17 +144,14 @@ extension ListOfGamesViewController: UITableViewDelegate, UITableViewDataSource{
 extension ListOfGamesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
-        guard let text = searchController.searchBar.text else { return }
-        
-        if !text.isEmpty {
-            filtration(text)
-        } else {
+        guard let text = searchController.searchBar.text, !text.isEmpty else {
             resultsOfSearch = gameList
             tableListOfGame.reloadData()
+            return
         }
+        filtration(text)
     }
     
-
     func filtration(_ text: String) {
         
         resultsOfSearch = gameList.filter({ (game: Game) in
