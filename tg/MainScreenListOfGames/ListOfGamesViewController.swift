@@ -9,8 +9,6 @@ import UIKit
 
 class ListOfGamesViewController: UIViewController {
     
-    
-   
     @IBOutlet weak var listOfGames: UICollectionView!
     @IBOutlet weak var tableListOfGame: UITableView!
     @IBOutlet weak var containerForSearchBar: UIView!
@@ -45,6 +43,7 @@ class ListOfGamesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "List of games"
+        tableListOfGame.allowsSelection = false
         searchControllerSettings()
         receiveDataFromServer()
        // registerListOfGame()
@@ -125,20 +124,23 @@ extension ListOfGamesViewController: UITableViewDelegate, UITableViewDataSource{
         let image = dictionaryOfLogo[id]
         cell.config(game: resultsOfSearch[indexPath.row], logoOfGame: image)
         
+        cell.delegate = self
+        
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let mainStory = UIStoryboard (name: "Main", bundle: nil)
-        if let vcAboutApp = mainStory.instantiateViewController(identifier: "aboutApp") as? AboutGameViewController {
-            
-            vcAboutApp.game = resultsOfSearch[indexPath.row]
-            navigationController?.pushViewController(vcAboutApp, animated: true)
-        }
-    }
-}
 
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//
+//        let mainStory = UIStoryboard (name: "Main", bundle: nil)
+//        if let vcAboutApp = mainStory.instantiateViewController(identifier: "aboutApp") as? AboutGameViewController {
+//
+//            vcAboutApp.game = searchIsNotEmpty ? resultsOfSearch[indexPath.row] : gameList[indexPath.row]
+//            navigationController?.pushViewController(vcAboutApp, animated: true)
+//        }
+//    }
+
+}
 
 extension ListOfGamesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
@@ -163,6 +165,19 @@ extension ListOfGamesViewController: UISearchResultsUpdating {
         tableListOfGame.reloadData()
     }
 }
+
+
+extension ListOfGamesViewController: TableListOfGameCellDelegate {
+    
+    func openGameDetails(_ game: Game) {
+        let mainStory = UIStoryboard (name: "Main", bundle: nil)
+        if let vcAboutApp = mainStory.instantiateViewController(identifier: "aboutApp") as? AboutGameViewController {
+            vcAboutApp.game = game
+            navigationController?.pushViewController(vcAboutApp, animated: true)
+        }
+    }
+}
+
 
 
 
