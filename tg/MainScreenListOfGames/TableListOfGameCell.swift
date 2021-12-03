@@ -13,11 +13,20 @@ class TableListOfGameCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var rating: UILabel!
     @IBOutlet weak var year: UILabel!
-    @IBOutlet weak var stackViewForBorder: UIStackView!
+    @IBOutlet weak var mainStackView: UIStackView!
+    @IBOutlet weak var buttonDetails: UIButton!
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        
+        
+        
+        //mainStackView.layer.backgroundColor = UIColor.lightGray
+        
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -29,7 +38,7 @@ class TableListOfGameCell: UITableViewCell {
     }
     
     public func config(game: Game, logoOfGame: UIImage) {
-        
+
         name.text = game.name
         
 //        if let backImage = game.backgroundImage {
@@ -46,6 +55,8 @@ class TableListOfGameCell: UITableViewCell {
         guard let released = game.released, let rate = game.rating else {return}
         rating.text = "\(rate)" //String(rate)
         year.text = dateFormatter(released)
+        
+        cellDesign()
     }
     
     
@@ -56,6 +67,23 @@ class TableListOfGameCell: UITableViewCell {
         guard let year = formatterDate.date(from: date) else { return "unknown" }
         formatterDate.dateFormat = "yyyy"
         return formatterDate.string(from: year)
+    }
+    
+    func cellDesign() {
+        
+        mainStackView.backgroundColor = .systemGray6
+        //mainStackView.layer.cornerRadius = 10
+        logo.layer.cornerRadius = 10
+    
+        layer.shadowOpacity = 1
+        layer.shadowOffset = CGSize(width: 1, height: 2)
+        layer.shadowColor = UIColor.lightGray.cgColor
+    }
+    
+    @IBAction func Details(_ sender: Any) {
+        
+        
+        
     }
     
     
