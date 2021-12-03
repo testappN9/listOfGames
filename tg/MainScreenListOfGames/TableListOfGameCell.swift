@@ -22,18 +22,12 @@ class TableListOfGameCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         cellDesign()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
-        
-    }
     
-    public func config(game: Game, logoOfGame: UIImage) {
+    public func config(game: Game, logoOfGame: UIImage?) {
 
         self.game = game
         

@@ -54,7 +54,7 @@
                                 </cells>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NLQ-3s-2BW">
-                                <rect key="frame" x="5" y="158" width="404" height="699"/>
+                                <rect key="frame" x="5" y="158" width="404" height="621"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ohz-ZU-SAS">
@@ -64,18 +64,29 @@
                                     <constraint firstAttribute="height" constant="70" id="fIA-fM-DWk"/>
                                 </constraints>
                             </view>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XWC-mP-C9i">
+                                <rect key="frame" x="0.0" y="779" width="414" height="83"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem systemItem="favorites" id="43g-ve-Sm8"/>
+                                    <tabBarItem systemItem="more" id="YT8-3c-wER"/>
+                                </items>
+                            </tabBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NLQ-3s-2BW" secondAttribute="bottom" constant="5" id="1bJ-Ug-P1U"/>
                             <constraint firstItem="Ohz-ZU-SAS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="388-wB-8ay"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NLQ-3s-2BW" secondAttribute="trailing" constant="5" id="3cM-7M-fOV"/>
+                            <constraint firstItem="XWC-mP-C9i" firstAttribute="top" secondItem="NLQ-3s-2BW" secondAttribute="bottom" id="3wj-Zv-9UJ"/>
+                            <constraint firstItem="XWC-mP-C9i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ANX-wZ-WRB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ohz-ZU-SAS" secondAttribute="trailing" id="BbH-7h-P2a"/>
                             <constraint firstItem="NLQ-3s-2BW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="dgG-iJ-ma8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8ys-Ld-r69" secondAttribute="bottom" id="fiZ-a6-btB"/>
                             <constraint firstItem="8ys-Ld-r69" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="7" id="gmr-LO-abs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="XWC-mP-C9i" secondAttribute="bottom" id="oLU-Yy-cRf"/>
                             <constraint firstItem="Ohz-ZU-SAS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="w81-zn-eLP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XWC-mP-C9i" secondAttribute="trailing" id="w9b-s8-gOE"/>
                             <constraint firstItem="NLQ-3s-2BW" firstAttribute="top" secondItem="Ohz-ZU-SAS" secondAttribute="bottom" id="x8a-mg-bua"/>
                             <constraint firstItem="8ys-Ld-r69" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="y5z-od-49K"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8ys-Ld-r69" secondAttribute="trailing" constant="7" id="zDc-ZX-D6e"/>

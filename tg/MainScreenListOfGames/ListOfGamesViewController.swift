@@ -17,6 +17,7 @@ class ListOfGamesViewController: UIViewController {
         didSet {
             DispatchQueue.main.async {
                 self.loadLogoOfGames()
+                self.resultsOfSearch = self.gameList
                 //self.listOfGames.reloadData()
                 self.tableListOfGame.reloadData()
             }
@@ -25,13 +26,8 @@ class ListOfGamesViewController: UIViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
     var resultsOfSearch = [Game]()
-    var searchIsNotEmpty: Bool {
-        guard let text = searchController.searchBar.text else { return false }
-        return !text.isEmpty
-    }
     
-    var arrayOfLogo = [UIImage]()
-    var arrayOfIndexLogoForSearch = [Int]()
+    var dictionaryOfLogo = [Int : UIImage]()
     
     struct Properties {
         static let cellName = "ListOfGamesViewCell"
@@ -46,6 +42,7 @@ class ListOfGamesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "List of games"
         tableListOfGame.allowsSelection = false
         searchControllerSettings()
         receiveDataFromServer()
@@ -102,7 +99,8 @@ class ListOfGamesViewController: UIViewController {
                     readyImage = UIImage(data: data as Data)
                 }
             }
-            arrayOfLogo.append(readyImage!)
+            
+            dictionaryOfLogo[item.id] = readyImage
         }
         
         tableListOfGame.reloadData()
@@ -115,24 +113,22 @@ extension ListOfGamesViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return searchIsNotEmpty ? resultsOfSearch.count : gameList.count
+        return resultsOfSearch.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableListOfGame.dequeueReusableCell(withIdentifier: "cellTableListOfGame", for: indexPath) as! TableListOfGameCell
         
-        if searchIsNotEmpty {
-            cell.config(game: resultsOfSearch[indexPath.row], logoOfGame: arrayOfLogo[arrayOfIndexLogoForSearch[indexPath.row]])
-            
-        } else {
-            cell.config(game: gameList[indexPath.row], logoOfGame: arrayOfLogo.isEmpty ? UIImage(named: "dice")! : arrayOfLogo[indexPath.row] )
-        }
+        let id = resultsOfSearch[indexPath.row].id
+        let image = dictionaryOfLogo[id]
+        cell.config(game: resultsOfSearch[indexPath.row], logoOfGame: image)
         
         cell.delegate = self
         
         return cell
     }
     
+
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //
 //        let mainStory = UIStoryboard (name: "Main", bundle: nil)
@@ -142,37 +138,26 @@ extension ListOfGamesViewController: UITableViewDelegate, UITableViewDataSource{
 //            navigationController?.pushViewController(vcAboutApp, animated: true)
 //        }
 //    }
+
 }
 
 extension ListOfGamesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        filtration(searchController.searchBar.text!)
+        
+        guard let text = searchController.searchBar.text, !text.isEmpty else {
+            resultsOfSearch = gameList
+            tableListOfGame.reloadData()
+            return
+        }
+        filtration(text)
     }
     
-
     func filtration(_ text: String) {
         
-        arrayOfIndexLogoForSearch = []
-        var arrayOfIndex = [Bool]()
-        
         resultsOfSearch = gameList.filter({ (game: Game) in
-             
-            let result = game.name?.lowercased().contains(text.lowercased()) ?? false
-            
-            if result {
-                arrayOfIndex.append(true)
-            } else {
-                arrayOfIndex.append(false)
-            }
-    
-            return result
+            return game.name?.lowercased().contains(text.lowercased()) ?? false
         })
         
-        for (index, value) in arrayOfIndex.enumerated() {
-            if value {
-                arrayOfIndexLogoForSearch.append(index)
-            }
-        }
         tableListOfGame.reloadData()
     }
 }
@@ -234,5 +219,3 @@ extension ListOfGamesViewController: UICollectionViewDelegate, UICollectionViewD
     }
 }
  */
-
-
