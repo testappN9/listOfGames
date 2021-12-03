@@ -28,10 +28,6 @@ class ListOfGamesViewController: UIViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
     var resultsOfSearch = [Game]()
-    var searchIsNotEmpty: Bool {
-        guard let text = searchController.searchBar.text else { return false }
-        return !text.isEmpty
-    }
     
     var dictionaryOfLogo = [Int : UIImage]()
     
@@ -150,7 +146,7 @@ extension ListOfGamesViewController: UISearchResultsUpdating {
         guard let text = searchController.searchBar.text else { return }
         
         if !text.isEmpty {
-            filtration(searchController.searchBar.text!)
+            filtration(text)
         } else {
             resultsOfSearch = gameList
             tableListOfGame.reloadData()
