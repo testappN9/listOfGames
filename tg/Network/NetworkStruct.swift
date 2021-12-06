@@ -22,8 +22,6 @@ struct Game: Codable, Equatable {
     var image: String?
     var width: Float?
     var height: Float?
-    
-    
     enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -34,7 +32,6 @@ struct Game: Codable, Equatable {
         case width
         case height
     }
-
 
      init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -47,22 +44,12 @@ struct Game: Codable, Equatable {
         self.image = try? container.decode(String.self, forKey: .image)
         self.width = try? container.decodeIfPresent(Float.self, forKey: .width)
         self.height = try? container.decodeIfPresent(Float.self, forKey: .height)
-        
     }
 }
 
-
 extension GamesModel {
-    
     func gameDescription() -> String {
-        
         guard let description = description else { return "no description" }
-        
         return description.replacingOccurrences(of: "<p>", with: "   ").replacingOccurrences(of: "</p>", with: "   ").replacingOccurrences(of: "<br />", with: "   ")
     }
 }
-
-
-
-
-
