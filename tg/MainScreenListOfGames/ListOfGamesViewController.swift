@@ -19,9 +19,11 @@ class ListOfGamesViewController: UIViewController {
                 self.resultsOfSearch = self.gameList
 //                self.listOfGames.reloadData()
                 self.tableListOfGame.reloadData()
+                self.animatedСircleOutside.removeFromSuperview()
             }
         }
     }
+    var animatedСircleOutside = UIView()
     let searchController = UISearchController(searchResultsController: nil)
     var resultsOfSearch = [Game]()
     var dictionaryOfLogo = [Int: UIImage]()
@@ -33,8 +35,8 @@ class ListOfGamesViewController: UIViewController {
         static let widthForCellСoefficient: CGFloat = 2
         static let heightForCellСoefficient: CGFloat = 3.5
         static let borderForCell: CGFloat = 10
+        static let sizeOfLoadCircle: CGFloat = 50
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "List of games"
@@ -43,8 +45,9 @@ class ListOfGamesViewController: UIViewController {
         receiveDataFromServer()
        // registerListOfGame()
         registerTableListOfGame()
+        loadingAnimation()
+
     }
-    
     func searchControllerSettings() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -54,9 +57,7 @@ class ListOfGamesViewController: UIViewController {
     func registerTableListOfGame() {
         tableListOfGame.delegate = self
         tableListOfGame.dataSource = self
-        
         tableListOfGame.register(UINib(nibName: "TableListOfGameCell", bundle: nil), forCellReuseIdentifier: "cellTableListOfGame")
-
         tableListOfGame.separatorColor = .clear
     }
   /*  func registerListOfGame() {
@@ -70,8 +71,7 @@ class ListOfGamesViewController: UIViewController {
         guard let url = URL(string: Properties.linkForData) else {return}
 
         NetworkManager.networkManager.getDataFromServer(url, complitionHandler: { data in
-                
-                self.gameList = data.results ?? []
+            self.gameList = data.results ?? []
         })
     }
     func loadLogoOfGames() {
@@ -85,6 +85,39 @@ class ListOfGamesViewController: UIViewController {
             dictionaryOfLogo[item.id] = readyImage
         }
         tableListOfGame.reloadData()
+    }
+    func loadingAnimation() {
+        let sizeOfCircle = Properties.sizeOfLoadCircle
+        let widthOfCircleOutside = sizeOfCircle
+        let heightOfCircleOutside = widthOfCircleOutside
+        let xOfCircleOutside = tableListOfGame.frame.width / 2 - (sizeOfCircle / 2)
+        let yOfCircleOutside = tableListOfGame.frame.height / 2 - (sizeOfCircle / 2)
+        let widthOfCircleInside = widthOfCircleOutside - (sizeOfCircle / 6)
+        let heightOfCircleInside = widthOfCircleInside
+        let xOfCircleInside = sizeOfCircle / 12
+        let yOfCircleInside = xOfCircleInside
+        let widthOfMovingView = widthOfCircleOutside
+        let heightOfMovingView = widthOfMovingView / 3
+        let rangeOfMotion = widthOfMovingView - heightOfMovingView
+        
+        animatedСircleOutside = UIView(frame: CGRect(x: xOfCircleOutside, y: yOfCircleOutside, width: widthOfCircleOutside, height: heightOfCircleOutside))
+        animatedСircleOutside.clipsToBounds = true
+        animatedСircleOutside.layer.cornerRadius = widthOfCircleOutside / 2
+        tableListOfGame.addSubview(animatedСircleOutside)
+        
+        let animatedMovingView = UIView(frame: CGRect(x: 0, y: 0, width: widthOfMovingView, height: heightOfMovingView))
+        animatedMovingView.backgroundColor = .systemGray3
+        animatedСircleOutside.addSubview(animatedMovingView)
+        
+        let animatedСircleInside = UIView(frame: CGRect(x: xOfCircleInside, y: yOfCircleInside, width: widthOfCircleInside, height: heightOfCircleInside))
+        animatedСircleInside.backgroundColor = .white
+        animatedСircleInside.clipsToBounds = true
+        animatedСircleInside.layer.cornerRadius = widthOfCircleInside / 2
+        animatedСircleOutside.addSubview(animatedСircleInside)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse]) {
+            animatedMovingView.frame.origin = CGPoint(x: 0, y: rangeOfMotion)
+        }
     }
 }
 
@@ -138,6 +171,7 @@ extension ListOfGamesViewController: TableListOfGameCellDelegate {
         }
     }
 }
+
 /*
 extension ListOfGamesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 

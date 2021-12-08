@@ -13,7 +13,6 @@ class ListOfGamesViewCell: UICollectionViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var publ: UILabel!
     @IBOutlet weak var rating: UILabel!
-    
     struct Properties {
         var cornerRadius: CGFloat = 10
         var publTextColor = UIColor.gray

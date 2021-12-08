@@ -20,9 +20,8 @@ class NetworkManager {
                 let product: GamesModel = try JSONDecoder().decode(GamesModel.self, from: data)
                 complitionHandler(product)
             } catch {
-                print(error)
+                print("connection error")
                }
-
         }
         session.resume()
     }

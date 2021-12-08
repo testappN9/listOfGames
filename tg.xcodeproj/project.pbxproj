@@ -242,7 +242,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then\n        \"${PODS_ROOT}/SwiftLint/swiftlint\"\n        echo \"Swift Lint...\"\n    else\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint or install via `brew install swiftlint`\"\n    fi\n\n\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n if which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then\n        \"${PODS_ROOT}/SwiftLint/swiftlint\"\n        echo \"Swift Lint...\"\n    else\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint or install via `brew install swiftlint`\"\n    fi\n\n\n";
 		};
 		27F25A675AE48344F42D6A02 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

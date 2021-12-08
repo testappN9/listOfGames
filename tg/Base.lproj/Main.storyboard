@@ -54,14 +54,14 @@
                                 </cells>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NLQ-3s-2BW">
-                                <rect key="frame" x="5" y="158" width="404" height="621"/>
+                                <rect key="frame" x="5" y="143" width="404" height="636"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ohz-ZU-SAS">
-                                <rect key="frame" x="0.0" y="88" width="414" height="70"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="55"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="fIA-fM-DWk"/>
+                                    <constraint firstAttribute="height" constant="55" id="fIA-fM-DWk"/>
                                 </constraints>
                             </view>
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XWC-mP-C9i">
