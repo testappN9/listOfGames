@@ -19,11 +19,11 @@ class ListOfGamesViewController: UIViewController {
                 self.resultsOfSearch = self.gameList
 //                self.listOfGames.reloadData()
                 self.tableListOfGame.reloadData()
-                self.animatedСircleOutside.removeFromSuperview()
+                self.animatedСircle.removeFromSuperview()
             }
         }
     }
-    var animatedСircleOutside = UIView()
+    var animatedСircle = UIView()
     let searchController = UISearchController(searchResultsController: nil)
     var resultsOfSearch = [Game]()
     var dictionaryOfLogo = [Int: UIImage]()
@@ -86,38 +86,46 @@ class ListOfGamesViewController: UIViewController {
         }
         tableListOfGame.reloadData()
     }
+//    func loadingAnimation2() {
+//        let sizeOfCircle = Properties.sizeOfLoadCircle
+//        let widthOfCircleOutside = sizeOfCircle
+//        let heightOfCircleOutside = widthOfCircleOutside
+//        let xOfCircleOutside = tableListOfGame.frame.width / 2 - (sizeOfCircle / 2)
+//        let yOfCircleOutside = tableListOfGame.frame.height / 2 - (sizeOfCircle / 2)
+//        let widthOfCircleInside = widthOfCircleOutside - (sizeOfCircle / 6)
+//        let heightOfCircleInside = widthOfCircleInside
+//        let xOfCircleInside = sizeOfCircle / 12
+//        let yOfCircleInside = xOfCircleInside
+//        let widthOfMovingView = widthOfCircleOutside
+//        let heightOfMovingView = widthOfMovingView / 3
+//        let rangeOfMotion = widthOfMovingView - heightOfMovingView
+//
+//        animatedСircleOutside = UIView(frame: CGRect(x: xOfCircleOutside, y: yOfCircleOutside, width: widthOfCircleOutside, height: heightOfCircleOutside))
+//        animatedСircleOutside.clipsToBounds = true
+//        animatedСircleOutside.layer.cornerRadius = widthOfCircleOutside / 2
+//        tableListOfGame.addSubview(animatedСircleOutside)
+//
+//        let animatedMovingView = UIView(frame: CGRect(x: 0, y: 0, width: widthOfMovingView, height: heightOfMovingView))
+//        animatedMovingView.backgroundColor = .systemGray3
+//        animatedСircleOutside.addSubview(animatedMovingView)
+//
+//        let animatedСircleInside = UIView(frame: CGRect(x: xOfCircleInside, y: yOfCircleInside, width: widthOfCircleInside, height: heightOfCircleInside))
+//        animatedСircleInside.backgroundColor = .white
+//        animatedСircleInside.clipsToBounds = true
+//        animatedСircleInside.layer.cornerRadius = widthOfCircleInside / 2
+//        animatedСircleOutside.addSubview(animatedСircleInside)
+//
+//        UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse]) {
+//            animatedMovingView.frame.origin = CGPoint(x: 0, y: rangeOfMotion)
+//        }
+//    }
     func loadingAnimation() {
-        let sizeOfCircle = Properties.sizeOfLoadCircle
-        let widthOfCircleOutside = sizeOfCircle
-        let heightOfCircleOutside = widthOfCircleOutside
-        let xOfCircleOutside = tableListOfGame.frame.width / 2 - (sizeOfCircle / 2)
-        let yOfCircleOutside = tableListOfGame.frame.height / 2 - (sizeOfCircle / 2)
-        let widthOfCircleInside = widthOfCircleOutside - (sizeOfCircle / 6)
-        let heightOfCircleInside = widthOfCircleInside
-        let xOfCircleInside = sizeOfCircle / 12
-        let yOfCircleInside = xOfCircleInside
-        let widthOfMovingView = widthOfCircleOutside
-        let heightOfMovingView = widthOfMovingView / 3
-        let rangeOfMotion = widthOfMovingView - heightOfMovingView
-        
-        animatedСircleOutside = UIView(frame: CGRect(x: xOfCircleOutside, y: yOfCircleOutside, width: widthOfCircleOutside, height: heightOfCircleOutside))
-        animatedСircleOutside.clipsToBounds = true
-        animatedСircleOutside.layer.cornerRadius = widthOfCircleOutside / 2
-        tableListOfGame.addSubview(animatedСircleOutside)
-        
-        let animatedMovingView = UIView(frame: CGRect(x: 0, y: 0, width: widthOfMovingView, height: heightOfMovingView))
-        animatedMovingView.backgroundColor = .systemGray3
-        animatedСircleOutside.addSubview(animatedMovingView)
-        
-        let animatedСircleInside = UIView(frame: CGRect(x: xOfCircleInside, y: yOfCircleInside, width: widthOfCircleInside, height: heightOfCircleInside))
-        animatedСircleInside.backgroundColor = .white
-        animatedСircleInside.clipsToBounds = true
-        animatedСircleInside.layer.cornerRadius = widthOfCircleInside / 2
-        animatedСircleOutside.addSubview(animatedСircleInside)
-        
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse]) {
-            animatedMovingView.frame.origin = CGPoint(x: 0, y: rangeOfMotion)
-        }
+        animatedСircle = LoadingAnimation()
+        let xPosition = tableListOfGame.bounds.width / 2 - (Properties.sizeOfLoadCircle / 2)
+        let yPosition = tableListOfGame.bounds.height / 2 - (Properties.sizeOfLoadCircle / 2)
+        animatedСircle.frame = CGRect(x: xPosition, y: yPosition, width: Properties.sizeOfLoadCircle, height: Properties.sizeOfLoadCircle)
+        animatedСircle.backgroundColor = .clear
+        tableListOfGame.addSubview(animatedСircle)
     }
 }
 
