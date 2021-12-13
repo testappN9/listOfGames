@@ -22,8 +22,10 @@
 		188F3734272FF22200E7B5EF /* ListOfGamesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188F3732272FF22200E7B5EF /* ListOfGamesViewCell.swift */; };
 		18A2B9C6273D54EC00814DC5 /* CollectionScreenshotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2B9C4273D54EC00814DC5 /* CollectionScreenshotsCell.swift */; };
 		18A2B9C7273D54EC00814DC5 /* CollectionScreenshotsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A2B9C5273D54EC00814DC5 /* CollectionScreenshotsCell.xib */; };
+		18C4D067276168DA00992B68 /* LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C4D066276168DA00992B68 /* LoadingAnimation.swift */; };
 		18E0E6C22750FBC80031D7A8 /* TableListOfGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0E6C02750FBC80031D7A8 /* TableListOfGameCell.swift */; };
 		18E0E6C32750FBC80031D7A8 /* TableListOfGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E0E6C12750FBC80031D7A8 /* TableListOfGameCell.xib */; };
+		641A0B795E7ED64CC656326B /* Pods_tg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3009E0416D95219E803C861 /* Pods_tg.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,8 +46,12 @@
 		188F3732272FF22200E7B5EF /* ListOfGamesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfGamesViewCell.swift; sourceTree = "<group>"; };
 		18A2B9C4273D54EC00814DC5 /* CollectionScreenshotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionScreenshotsCell.swift; sourceTree = "<group>"; };
 		18A2B9C5273D54EC00814DC5 /* CollectionScreenshotsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionScreenshotsCell.xib; sourceTree = "<group>"; };
+		18C4D066276168DA00992B68 /* LoadingAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimation.swift; sourceTree = "<group>"; };
 		18E0E6C02750FBC80031D7A8 /* TableListOfGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableListOfGameCell.swift; sourceTree = "<group>"; };
 		18E0E6C12750FBC80031D7A8 /* TableListOfGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableListOfGameCell.xib; sourceTree = "<group>"; };
+		1D382291F2F33DDABF2F9680 /* Pods-tg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tg.debug.xcconfig"; path = "Target Support Files/Pods-tg/Pods-tg.debug.xcconfig"; sourceTree = "<group>"; };
+		F07CCAF2AD26A3AE601D2743 /* Pods-tg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tg.release.xcconfig"; path = "Target Support Files/Pods-tg/Pods-tg.release.xcconfig"; sourceTree = "<group>"; };
+		F3009E0416D95219E803C861 /* Pods_tg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				641A0B795E7ED64CC656326B /* Pods_tg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +113,8 @@
 			children = (
 				188F371D272FE9F400E7B5EF /* tg */,
 				188F371C272FE9F400E7B5EF /* Products */,
+				BD6B99D2608CA7C9CC7132AE /* Pods */,
+				2B3E1051DE3B5958BB43BBE9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,8 +137,26 @@
 				188F3727272FE9F700E7B5EF /* Assets.xcassets */,
 				188F3729272FE9F700E7B5EF /* LaunchScreen.storyboard */,
 				188F372C272FE9F700E7B5EF /* Info.plist */,
+				18C4D066276168DA00992B68 /* LoadingAnimation.swift */,
 			);
 			path = tg;
+			sourceTree = "<group>";
+		};
+		2B3E1051DE3B5958BB43BBE9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F3009E0416D95219E803C861 /* Pods_tg.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD6B99D2608CA7C9CC7132AE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1D382291F2F33DDABF2F9680 /* Pods-tg.debug.xcconfig */,
+				F07CCAF2AD26A3AE601D2743 /* Pods-tg.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,9 +166,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 188F372F272FE9F700E7B5EF /* Build configuration list for PBXNativeTarget "tg" */;
 			buildPhases = (
+				27F25A675AE48344F42D6A02 /* [CP] Check Pods Manifest.lock */,
 				188F3717272FE9F400E7B5EF /* Sources */,
 				188F3718272FE9F400E7B5EF /* Frameworks */,
 				188F3719272FE9F400E7B5EF /* Resources */,
+				18FF816A275E28EE000E9A4C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -200,6 +229,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		18FF816A275E28EE000E9A4C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n if which \"${PODS_ROOT}/SwiftLint/swiftlint\" >/dev/null; then\n        \"${PODS_ROOT}/SwiftLint/swiftlint\"\n        echo \"Swift Lint...\"\n    else\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint or install via `brew install swiftlint`\"\n    fi\n\n\n";
+		};
+		27F25A675AE48344F42D6A02 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tg-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		188F3717272FE9F400E7B5EF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -208,6 +279,7 @@
 				188F3723272FE9F400E7B5EF /* ListOfGamesViewController.swift in Sources */,
 				18E0E6C22750FBC80031D7A8 /* TableListOfGameCell.swift in Sources */,
 				18445E3A2732A6C100D40700 /* NetworkStruct.swift in Sources */,
+				18C4D067276168DA00992B68 /* LoadingAnimation.swift in Sources */,
 				183FCD112742E90100CD2C10 /* ScreenshotViewer.swift in Sources */,
 				188F3734272FF22200E7B5EF /* ListOfGamesViewCell.swift in Sources */,
 				188F371F272FE9F400E7B5EF /* AppDelegate.swift in Sources */,
@@ -359,6 +431,7 @@
 		};
 		188F3730272FE9F700E7B5EF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D382291F2F33DDABF2F9680 /* Pods-tg.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -377,6 +450,7 @@
 		};
 		188F3731272FE9F700E7B5EF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F07CCAF2AD26A3AE601D2743 /* Pods-tg.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
