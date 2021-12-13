@@ -8,6 +8,7 @@
 import UIKit
 
 class LoadingAnimation: UIView {
+   
     override func draw(_ rect: CGRect) {
         drawView()
         animateView()
@@ -26,6 +27,13 @@ class LoadingAnimation: UIView {
         rotation.fromValue = 0
         rotation.toValue = CGFloat.pi * 2
         rotation.duration = 2.0
-        self.layer.add(rotation, forKey: nil)
+        rotation.isRemovedOnCompletion = false
+        self.layer.add(rotation, forKey: "customRotation")
+    }
+    func animationStop() {
+        layer.speed = 0.0
+    }
+    func animationResume() {
+        layer.speed = 1.0
     }
 }

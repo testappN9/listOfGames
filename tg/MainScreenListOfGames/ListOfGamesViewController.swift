@@ -14,19 +14,21 @@ class ListOfGamesViewController: UIViewController {
     @IBOutlet weak var containerForSearchBar: UIView!
     var gameList: [Game] = [] {
         didSet {
-            DispatchQueue.main.async {
-                self.loadLogoOfGames()
-                self.resultsOfSearch = self.gameList
+            DispatchQueue.main.async { [weak self] in
+                self?.loadLogoOfGames()
+                self?.resultsOfSearch = self?.gameList ?? []
 //                self.listOfGames.reloadData()
-                self.tableListOfGame.reloadData()
-                self.animatedСircle.removeFromSuperview()
+                self?.tableListOfGame.reloadData()
+                self?.animatedСircle.isHidden = true
+                self?.animatedСircle.animationStop()
             }
         }
     }
-    var animatedСircle = UIView()
+    let animatedСircle = LoadingAnimation()
     let searchController = UISearchController(searchResultsController: nil)
     var resultsOfSearch = [Game]()
     var dictionaryOfLogo = [Int: UIImage]()
+
     struct Properties {
         static let cellName = "ListOfGamesViewCell"
         static let linkForData = "https://api.rawg.io/api/games?key=1f1e96182ddd49dab48e0f16889a1aae"
@@ -37,6 +39,12 @@ class ListOfGamesViewController: UIViewController {
         static let borderForCell: CGFloat = 10
         static let sizeOfLoadCircle: CGFloat = 50
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        if animatedСircle.isHidden == false {
+            animatedСircle.animationResume()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "List of games"
@@ -46,7 +54,6 @@ class ListOfGamesViewController: UIViewController {
        // registerListOfGame()
         registerTableListOfGame()
         loadingAnimation()
-
     }
     func searchControllerSettings() {
         searchController.searchResultsUpdater = self
@@ -86,41 +93,7 @@ class ListOfGamesViewController: UIViewController {
         }
         tableListOfGame.reloadData()
     }
-//    func loadingAnimation2() {
-//        let sizeOfCircle = Properties.sizeOfLoadCircle
-//        let widthOfCircleOutside = sizeOfCircle
-//        let heightOfCircleOutside = widthOfCircleOutside
-//        let xOfCircleOutside = tableListOfGame.frame.width / 2 - (sizeOfCircle / 2)
-//        let yOfCircleOutside = tableListOfGame.frame.height / 2 - (sizeOfCircle / 2)
-//        let widthOfCircleInside = widthOfCircleOutside - (sizeOfCircle / 6)
-//        let heightOfCircleInside = widthOfCircleInside
-//        let xOfCircleInside = sizeOfCircle / 12
-//        let yOfCircleInside = xOfCircleInside
-//        let widthOfMovingView = widthOfCircleOutside
-//        let heightOfMovingView = widthOfMovingView / 3
-//        let rangeOfMotion = widthOfMovingView - heightOfMovingView
-//
-//        animatedСircleOutside = UIView(frame: CGRect(x: xOfCircleOutside, y: yOfCircleOutside, width: widthOfCircleOutside, height: heightOfCircleOutside))
-//        animatedСircleOutside.clipsToBounds = true
-//        animatedСircleOutside.layer.cornerRadius = widthOfCircleOutside / 2
-//        tableListOfGame.addSubview(animatedСircleOutside)
-//
-//        let animatedMovingView = UIView(frame: CGRect(x: 0, y: 0, width: widthOfMovingView, height: heightOfMovingView))
-//        animatedMovingView.backgroundColor = .systemGray3
-//        animatedСircleOutside.addSubview(animatedMovingView)
-//
-//        let animatedСircleInside = UIView(frame: CGRect(x: xOfCircleInside, y: yOfCircleInside, width: widthOfCircleInside, height: heightOfCircleInside))
-//        animatedСircleInside.backgroundColor = .white
-//        animatedСircleInside.clipsToBounds = true
-//        animatedСircleInside.layer.cornerRadius = widthOfCircleInside / 2
-//        animatedСircleOutside.addSubview(animatedСircleInside)
-//
-//        UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse]) {
-//            animatedMovingView.frame.origin = CGPoint(x: 0, y: rangeOfMotion)
-//        }
-//    }
     func loadingAnimation() {
-        animatedСircle = LoadingAnimation()
         let xPosition = tableListOfGame.bounds.width / 2 - (Properties.sizeOfLoadCircle / 2)
         let yPosition = tableListOfGame.bounds.height / 2 - (Properties.sizeOfLoadCircle / 2)
         animatedСircle.frame = CGRect(x: xPosition, y: yPosition, width: Properties.sizeOfLoadCircle, height: Properties.sizeOfLoadCircle)
@@ -134,23 +107,13 @@ extension ListOfGamesViewController: UITableViewDelegate, UITableViewDataSource 
         return resultsOfSearch.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableListOfGame.dequeueReusableCell(withIdentifier: "cellTableListOfGame", for: indexPath) as! TableListOfGameCell
+        guard let cell = tableListOfGame.dequeueReusableCell(withIdentifier: "cellTableListOfGame", for: indexPath) as? TableListOfGameCell else { return UITableViewCell() }
         let id = resultsOfSearch[indexPath.row].id
         let image = dictionaryOfLogo[id]
         cell.config(game: resultsOfSearch[indexPath.row], logoOfGame: image)
         cell.delegate = self
         return cell
     }
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//        let mainStory = UIStoryboard (name: "Main", bundle: nil)
-//        if let vcAboutApp = mainStory.instantiateViewController(identifier: "aboutApp") as? AboutGameViewController {
-//
-//            vcAboutApp.game = searchIsNotEmpty ? resultsOfSearch[indexPath.row] : gameList[indexPath.row]
-//            navigationController?.pushViewController(vcAboutApp, animated: true)
-//        }
-//    }
-
 }
 
 extension ListOfGamesViewController: UISearchResultsUpdating {
