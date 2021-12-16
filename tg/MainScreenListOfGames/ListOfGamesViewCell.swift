@@ -19,7 +19,6 @@ class ListOfGamesViewCell: UICollectionViewCell {
         var publTextColor = UIColor.gray
         var ratingTextColor = UIColor.red
     }
-    
     let properties = Properties()
     
     override func awakeFromNib() {
@@ -30,23 +29,17 @@ class ListOfGamesViewCell: UICollectionViewCell {
         rating.textColor = properties.ratingTextColor
     }
 
-    public func config(game: Game) {
-        
+    public func config(game: Game, logoOfGame: UIImage?) {
         name.text = game.name
-        
-        if let backImage = game.backgroundImage {
-            if let data = NSData(contentsOf: NSURL(string: backImage)! as URL) {
-                logo.image = UIImage(data: data as Data)
-            }
+        logo.image = logoOfGame
+        if let released = game.released {
+            publ.text = dateFormatter(released)
         }
-    
-        guard let released = game.released, let rate = game.rating else {return}
-        rating.text = String(rate)
-        publ.text = dateFormatter(released)
+        if let rate = game.rating {
+            rating.text = String(rate)
+        }
     }
-    
     func dateFormatter(_ date: String) -> String {
-        
         let formatterDate = DateFormatter()
         formatterDate.dateFormat = "yyyy-MM-dd"
         guard let year = formatterDate.date(from: date) else { return "unknown" }

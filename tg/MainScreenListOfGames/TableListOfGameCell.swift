@@ -16,21 +16,16 @@ class TableListOfGameCell: UITableViewCell {
     @IBOutlet weak var mainStackView: UIStackView!
     @IBOutlet weak var buttonDetails: UIButton!
     @IBOutlet weak var mainContainer: UIView!
-    
     var game: Game?
     weak var delegate: TableListOfGameCellDelegate?
-    
+  
     override func awakeFromNib() {
         super.awakeFromNib()
         cellDesign()
     }
-
-
-    
     public func config(game: Game, logoOfGame: UIImage?) {
 
         self.game = game
-        
         name.text = game.name
         logo.image = logoOfGame
         
@@ -40,8 +35,6 @@ class TableListOfGameCell: UITableViewCell {
         guard let rate = game.rating else {return}
         rating.text = "\(rate)"
     }
-    
-    
     func dateFormatter(_ date: String) -> String {
         
         let formatterDate = DateFormatter()
@@ -50,9 +43,7 @@ class TableListOfGameCell: UITableViewCell {
         formatterDate.dateFormat = "yyyy"
         return formatterDate.string(from: year)
     }
-    
     func cellDesign() {
-        
         mainContainer.backgroundColor = .systemGray6
         mainContainer.layer.cornerRadius = 10
         
@@ -60,20 +51,14 @@ class TableListOfGameCell: UITableViewCell {
         mainContainer.layer.shadowOffset = CGSize(width: 1, height: 2)
         mainContainer.layer.shadowOpacity = 0.5
         mainContainer.layer.masksToBounds = false
-        
         logo.layer.cornerRadius = 10
     }
-    
-    
     @IBAction func buttonDetails(_ sender: Any) {
-        
         guard let game = game else { return }
         delegate?.openGameDetails(game)
     }
-    
 }
 
 protocol TableListOfGameCellDelegate: AnyObject {
-    
     func openGameDetails(_ game: Game)
 }

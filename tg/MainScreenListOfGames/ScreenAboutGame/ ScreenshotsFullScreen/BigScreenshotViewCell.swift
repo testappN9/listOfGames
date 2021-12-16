@@ -8,6 +8,5 @@
 import UIKit
 
 class BigScreenshotViewCell: UICollectionViewCell {
-    
     @IBOutlet weak var openImage: UIImageView!
 }
