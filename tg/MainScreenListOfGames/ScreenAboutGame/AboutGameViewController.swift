@@ -30,9 +30,13 @@ class AboutGameViewController: UIViewController {
     var descriptionOfGame: String?
     // uneeded property, description of game is a part of Game model
     var arrayOfScreenshots: [UIImage] = []
+
+    override func viewWillAppear(_ animated: Bool) {
+        SettingsViewController.applyUserSettings(currentClass: self, table: nil, collection: nil, searchController: nil, tableForHide: nil)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
         receiveDataFromServer()
         addingInfoAndCollection()
     }
@@ -74,6 +78,7 @@ class AboutGameViewController: UIViewController {
         })
     }
 }
+
 extension AboutGameViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return screenshots.count

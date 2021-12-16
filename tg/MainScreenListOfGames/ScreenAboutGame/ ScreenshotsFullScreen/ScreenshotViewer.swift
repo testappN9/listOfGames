@@ -12,6 +12,9 @@ class ScreenshotViewer: UIViewController {
     @IBOutlet weak var collectionOfScreenshots: UICollectionView!
     var arrayOfScreenshots: [UIImage] = []
     var activeScreenshot = 0
+    override func viewWillAppear(_ animated: Bool) {
+        SettingsViewController.applyUserSettings(currentClass: self, table: nil, collection: nil, searchController: nil, tableForHide: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionOfScreenshots.delegate = self

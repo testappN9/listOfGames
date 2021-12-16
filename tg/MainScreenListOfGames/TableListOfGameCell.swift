@@ -18,11 +18,11 @@ class TableListOfGameCell: UITableViewCell {
     @IBOutlet weak var mainContainer: UIView!
     var game: Game?
     weak var delegate: TableListOfGameCellDelegate?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         cellDesign()
     }
-
     public func config(game: Game, logoOfGame: UIImage?) {
 
         self.game = game
@@ -42,6 +42,7 @@ class TableListOfGameCell: UITableViewCell {
         return formatterDate.string(from: year)
     }
     func cellDesign() {
+        mainContainer.backgroundColor = .systemGray6
         mainContainer.layer.cornerRadius = 10
         mainContainer.layer.shadowColor = UIColor.black.cgColor
         mainContainer.layer.shadowOffset = CGSize(width: 1, height: 1)

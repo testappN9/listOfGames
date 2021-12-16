@@ -9,7 +9,7 @@ import UIKit
 
 class ListOfGamesViewController: UIViewController {
     
-    @IBOutlet weak var listOfGames: UICollectionView!
+    @IBOutlet weak var collectionListOfGames: UICollectionView!
     @IBOutlet weak var tableListOfGame: UITableView!
     @IBOutlet weak var containerForSearchBar: UIView!
     var gameList: [Game] = [] {
@@ -21,6 +21,7 @@ class ListOfGamesViewController: UIViewController {
                 self?.tableListOfGame.reloadData()
                 self?.animatedСircle.isHidden = true
                 self?.animatedСircle.animationStop()
+                self?.collectionListOfGames.reloadData()
             }
         }
     }
@@ -45,13 +46,16 @@ class ListOfGamesViewController: UIViewController {
             animatedСircle.animationResume()
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        SettingsViewController.applyUserSettings(currentClass: self, table: tableListOfGame, collection: collectionListOfGames, searchController: searchController, tableForHide: tableListOfGame)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "List of games"
         tableListOfGame.allowsSelection = false
         searchControllerSettings()
         receiveDataFromServer()
-       // registerListOfGame()
+        registerListOfGame()
         registerTableListOfGame()
         loadingAnimation()
     }
@@ -67,18 +71,17 @@ class ListOfGamesViewController: UIViewController {
         tableListOfGame.register(UINib(nibName: "TableListOfGameCell", bundle: nil), forCellReuseIdentifier: "cellTableListOfGame")
         tableListOfGame.separatorColor = .clear
     }
-  /*  func registerListOfGame() {
+    func registerListOfGame() {
+        collectionListOfGames.delegate = self
+        collectionListOfGames.dataSource = self
         
-        listOfGames.delegate = self
-        listOfGames.dataSource = self
-        
-        listOfGames.register(UINib(nibName: Properties.cellName, bundle: nil), forCellWithReuseIdentifier: Properties.cellName)
-    } */
+        collectionListOfGames.register(UINib(nibName: Properties.cellName, bundle: nil), forCellWithReuseIdentifier: Properties.cellName)
+    }
+
     func receiveDataFromServer() {
         guard let url = URL(string: Properties.linkForData) else {return}
-
         NetworkManager.networkManager.getDataFromServer(url, complitionHandler: { data in
-            self.gameList = data.results ?? []
+                self.gameList = data.results ?? []
         })
     }
     func loadLogoOfGames() {
@@ -92,6 +95,7 @@ class ListOfGamesViewController: UIViewController {
             dictionaryOfLogo[item.id] = readyImage
         }
         tableListOfGame.reloadData()
+        collectionListOfGames.reloadData()
     }
     func loadingAnimation() {
         let xPosition = tableListOfGame.bounds.width / 2 - (Properties.sizeOfLoadCircle / 2)
@@ -115,12 +119,12 @@ extension ListOfGamesViewController: UITableViewDelegate, UITableViewDataSource 
         return cell
     }
 }
-
 extension ListOfGamesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text, !text.isEmpty else {
             resultsOfSearch = gameList
             tableListOfGame.reloadData()
+            collectionListOfGames.reloadData()
             return
         }
         filtration(text)
@@ -130,6 +134,7 @@ extension ListOfGamesViewController: UISearchResultsUpdating {
             return game.name?.lowercased().contains(text.lowercased()) ?? false
         })
         tableListOfGame.reloadData()
+        collectionListOfGames.reloadData()
     }
 }
 
@@ -143,45 +148,34 @@ extension ListOfGamesViewController: TableListOfGameCellDelegate {
     }
 }
 
-/*
 extension ListOfGamesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return gameList.count
+        return resultsOfSearch.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Properties.cellName, for: indexPath) as! ListOfGamesViewCell
-        
-        cell.config(game: gameList[indexPath.row])
+        let id = resultsOfSearch[indexPath.row].id
+        let image = dictionaryOfLogo[id]
+        cell.config(game: gameList[indexPath.row], logoOfGame: image)
         return cell
     }
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width / Properties.widthForCellСoefficient - Properties.borderForCell, height: collectionView.frame.size.width / Properties.heightForCellСoefficient)
-        
     }
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return Properties.minimumInteritemSpacingForSection
     }
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return Properties.minimumLineSpacingForSection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
-        let mainStory = UIStoryboard (name: "Main", bundle: nil)
+        let mainStory = UIStoryboard(name: "Main", bundle: nil)
         if let vcAboutApp = mainStory.instantiateViewController(identifier: "aboutApp") as? AboutGameViewController {
-            
-            vcAboutApp.game = gameList[indexPath.row]
-            
-            vcAboutApp.modalTransitionStyle = .flipHorizontal
-            vcAboutApp.modalPresentationStyle = .automatic
-            present(vcAboutApp, animated: true, completion: nil)
+            vcAboutApp.game = resultsOfSearch[indexPath.row]
+            navigationController?.pushViewController(vcAboutApp, animated: true)
         }
     }
 }
- */
+ 
