@@ -8,7 +8,6 @@
 import UIKit
 
 class ScreenshotViewer: UIViewController {
-        
     @IBOutlet weak var imageBackground: UIImageView!
     @IBOutlet weak var collectionOfScreenshots: UICollectionView!
     var arrayOfScreenshots: [UIImage] = []

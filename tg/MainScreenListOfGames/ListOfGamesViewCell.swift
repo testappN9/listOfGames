@@ -13,14 +13,12 @@ class ListOfGamesViewCell: UICollectionViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var publ: UILabel!
     @IBOutlet weak var rating: UILabel!
-    
     struct Properties {
         var cornerRadius: CGFloat = 10
         var publTextColor = UIColor.gray
         var ratingTextColor = UIColor.red
     }
     let properties = Properties()
-    
     override func awakeFromNib() {
         super.awakeFromNib()
 

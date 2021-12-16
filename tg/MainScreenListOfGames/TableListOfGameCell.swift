@@ -18,7 +18,7 @@ class TableListOfGameCell: UITableViewCell {
     @IBOutlet weak var mainContainer: UIView!
     var game: Game?
     weak var delegate: TableListOfGameCellDelegate?
-  
+
     override func awakeFromNib() {
         super.awakeFromNib()
         cellDesign()
@@ -28,7 +28,6 @@ class TableListOfGameCell: UITableViewCell {
         self.game = game
         name.text = game.name
         logo.image = logoOfGame
-        
         if let released = game.released {
             year.text = dateFormatter(released)
         }
@@ -36,7 +35,6 @@ class TableListOfGameCell: UITableViewCell {
         rating.text = "\(rate)"
     }
     func dateFormatter(_ date: String) -> String {
-        
         let formatterDate = DateFormatter()
         formatterDate.dateFormat = "yyyy-MM-dd"
         guard let year = formatterDate.date(from: date) else { return "unknown" }
@@ -46,10 +44,9 @@ class TableListOfGameCell: UITableViewCell {
     func cellDesign() {
         mainContainer.backgroundColor = .systemGray6
         mainContainer.layer.cornerRadius = 10
-        
         mainContainer.layer.shadowColor = UIColor.black.cgColor
-        mainContainer.layer.shadowOffset = CGSize(width: 1, height: 2)
-        mainContainer.layer.shadowOpacity = 0.5
+        mainContainer.layer.shadowOffset = CGSize(width: 1, height: 1)
+        mainContainer.layer.shadowOpacity = 0.2
         mainContainer.layer.masksToBounds = false
         logo.layer.cornerRadius = 10
     }

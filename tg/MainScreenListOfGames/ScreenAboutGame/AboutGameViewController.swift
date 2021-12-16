@@ -30,10 +30,11 @@ class AboutGameViewController: UIViewController {
     var descriptionOfGame: String?
     // uneeded property, description of game is a part of Game model
     var arrayOfScreenshots: [UIImage] = []
-    
+
     override func viewWillAppear(_ animated: Bool) {
         SettingsViewController.applyUserSettings(currentClass: self, table: nil, collection: nil, searchController: nil, tableForHide: nil)
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         receiveDataFromServer()
@@ -77,9 +78,8 @@ class AboutGameViewController: UIViewController {
         })
     }
 }
-    
+
 extension AboutGameViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return screenshots.count
     }
@@ -87,7 +87,7 @@ extension AboutGameViewController: UICollectionViewDelegate, UICollectionViewDat
         guard let imageHeight = screenshots[indexPath.item].height, let imageWidth = screenshots[indexPath.item].width else { return CGSize(width: 0, height: 0) }
         let height = CGFloat(imageHeight / imageWidth) * collectionScreenshots.frame.size.width + 2
         return CGSize(width: collectionScreenshots.frame.size.width, height: height)
-     }
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionScreenshots.dequeueReusableCell(withReuseIdentifier: "CollectionScreenshotsCell", for: indexPath) as! CollectionScreenshotsCell
         guard let screenshot = screenshots[indexPath.item].image else { return cell }
@@ -98,7 +98,7 @@ extension AboutGameViewController: UICollectionViewDelegate, UICollectionViewDat
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let mainStory = UIStoryboard (name: "Main", bundle: nil)
+        let mainStory = UIStoryboard(name: "Main", bundle: nil)
         if let screenshotViewer = mainStory.instantiateViewController(identifier: "ScreenshotViewer") as? ScreenshotViewer {
             screenshotViewer.arrayOfScreenshots = arrayOfScreenshots
             screenshotViewer.activeScreenshot = indexPath.item
