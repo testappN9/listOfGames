@@ -47,7 +47,7 @@ class ListOfGamesViewController: UIViewController {
         }
     }
     override func viewWillAppear(_ animated: Bool) {
-        SettingsViewController.applyUserSettings(currentClass: self, table: tableListOfGame, collection: collectionListOfGames, searchController: searchController, tableForHide: tableListOfGame)
+        UserSettingsRegistration.apply(currentClass: self, table: tableListOfGame, collection: collectionListOfGames, searchController: searchController, tableForHide: tableListOfGame)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
