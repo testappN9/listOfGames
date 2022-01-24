@@ -9,27 +9,27 @@ import UIKit
 
 class UserSettingsRegistration {
     static func apply(currentClass: AnyObject, table: UITableView?, collection: UICollectionView?, searchController: UISearchController?, tableForHide: UITableView?) {
-        let nameOfStateArray = ["viewState", "themeState", "backgroundState"]
-        for name in nameOfStateArray {
-            let value = UserDefaults.standard.integer(forKey: name)
-            switch (name, value) {
-            case (nameOfStateArray[0], 0):
+       
+        for name in SettingsItems.allCases {
+            let value = UserDefaults.standard.integer(forKey: name.rawValue)
+            switch (name.rawValue, value) {
+            case (SettingsItems.viewState.rawValue, 0):
                 tableForHide?.isHidden = false
-            case (nameOfStateArray[0], 1):
+            case (SettingsItems.viewState.rawValue, 1):
                 tableForHide?.isHidden = true
-            case (nameOfStateArray[1], 0):
+            case (SettingsItems.themeState.rawValue, 0):
                 searchController?.searchBar.barTintColor = .systemGray6
                 currentClass.navigationController?.navigationBar.barTintColor = .systemGray6
                 currentClass.tabBarController??.tabBar.barTintColor = .systemGray6
-            case (nameOfStateArray[1], 1):
+            case (SettingsItems.themeState.rawValue, 1):
                 searchController?.searchBar.barTintColor = .darkGray
                 currentClass.navigationController?.navigationBar.barTintColor = .black
                 currentClass.tabBarController?.tabBar.barTintColor = .black
-            case (nameOfStateArray[2], 0):
+            case (SettingsItems.backgroundState.rawValue, 0):
                 currentClass.view?.backgroundColor = .white
                 table?.backgroundColor = .white
                 collection?.backgroundColor = .white
-            case (nameOfStateArray[2], 1):
+            case (SettingsItems.backgroundState.rawValue, 1):
                 currentClass.view?.backgroundColor = .lightGray
                 table?.backgroundColor = .lightGray
                 collection?.backgroundColor = .lightGray
@@ -38,4 +38,10 @@ class UserSettingsRegistration {
             }
         }
     }
+}
+
+enum SettingsItems: String, CaseIterable {
+    case viewState
+    case themeState
+    case backgroundState
 }

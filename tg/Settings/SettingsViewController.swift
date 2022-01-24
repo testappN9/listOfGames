@@ -13,7 +13,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var userPhoto: UIView!
     let arrayOfNames = ["View", "Theme", "Background"]
     let arrayOfAllStates = [("table", "icons"), ("light", "dark"), ("white", "gray")]
-    var arrayOfCurrentStates = [UserDefaults.standard.integer(forKey: "viewState"), UserDefaults.standard.integer(forKey: "themeState"), UserDefaults.standard.integer(forKey: "backgroundState")]
+    var arrayOfCurrentStates = [UserDefaults.standard.integer(forKey: SettingsItems.viewState.rawValue), UserDefaults.standard.integer(forKey: SettingsItems.themeState.rawValue), UserDefaults.standard.integer(forKey: SettingsItems.backgroundState.rawValue)]
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,11 +53,11 @@ extension SettingsViewController: TableSettingsCellDelegate {
         }
         switch indexPathRow {
         case 0:
-            saveToUserDefaults("viewState")
+            saveToUserDefaults(SettingsItems.viewState.rawValue)
         case 1:
-            saveToUserDefaults("themeState")
+            saveToUserDefaults(SettingsItems.themeState.rawValue)
         case 2:
-            saveToUserDefaults("backgroundState")
+            saveToUserDefaults(SettingsItems.backgroundState.rawValue)
         default:
             break
         }
