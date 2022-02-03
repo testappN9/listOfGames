@@ -18,7 +18,7 @@ class LoadingAnimation: UIView {
         let center = CGPoint(x: self.bounds.width / 2, y: self.bounds.height / 2)
         circle.addArc(withCenter: center, radius: self.bounds.width / 2 - 5, startAngle: 0, endAngle: CGFloat.pi * 1.5, clockwise: true)
         circle.lineWidth = 3
-        UIColor.lightGray.setStroke()
+        UIColor.gray.setStroke()
         circle.stroke()
     }
     func animateView() {

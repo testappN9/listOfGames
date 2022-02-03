@@ -15,6 +15,7 @@
 		18445E372732941200D40700 /* AboutGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18445E362732941200D40700 /* AboutGameViewController.swift */; };
 		18445E3A2732A6C100D40700 /* NetworkStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18445E392732A6C100D40700 /* NetworkStruct.swift */; };
 		187E3D242743128B00CD433E /* BigScreenshotViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E3D232743128B00CD433E /* BigScreenshotViewCell.swift */; };
+		188B926F277076EE00FB5737 /* UserSettingsRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B926E277076EE00FB5737 /* UserSettingsRegistration.swift */; };
 		188F371F272FE9F400E7B5EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188F371E272FE9F400E7B5EF /* AppDelegate.swift */; };
 		188F3721272FE9F400E7B5EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188F3720272FE9F400E7B5EF /* SceneDelegate.swift */; };
 		188F3723272FE9F400E7B5EF /* ListOfGamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188F3722272FE9F400E7B5EF /* ListOfGamesViewController.swift */; };
@@ -44,6 +45,7 @@
 		18445E362732941200D40700 /* AboutGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutGameViewController.swift; sourceTree = "<group>"; };
 		18445E392732A6C100D40700 /* NetworkStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStruct.swift; sourceTree = "<group>"; };
 		187E3D232743128B00CD433E /* BigScreenshotViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigScreenshotViewCell.swift; sourceTree = "<group>"; };
+		188B926E277076EE00FB5737 /* UserSettingsRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsRegistration.swift; sourceTree = "<group>"; };
 		188F371B272FE9F400E7B5EF /* tg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		188F371E272FE9F400E7B5EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		188F3720272FE9F400E7B5EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				18C4737A276771C900715F2F /* SettingsViewController.swift */,
+				188B926E277076EE00FB5737 /* UserSettingsRegistration.swift */,
 				18C4738127677E4E00715F2F /* TableSettingsCell.swift */,
 				18C4738227677E4E00715F2F /* TableSettingsCell.xib */,
 			);
@@ -309,6 +312,7 @@
 				188F3721272FE9F400E7B5EF /* SceneDelegate.swift in Sources */,
 				18093A1527A8AC370000A0F6 /* FavoritesViewController.swift in Sources */,
 				1832D618273A7A4800445BDF /* NetworkManager.swift in Sources */,
+				188B926F277076EE00FB5737 /* UserSettingsRegistration.swift in Sources */,
 				18445E372732941200D40700 /* AboutGameViewController.swift in Sources */,
 				18A2B9C6273D54EC00814DC5 /* CollectionScreenshotsCell.swift in Sources */,
 				18F03DCC27AAA8DE002761D5 /* FavoritesTableViewCell.swift in Sources */,

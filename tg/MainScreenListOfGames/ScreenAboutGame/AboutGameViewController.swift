@@ -32,7 +32,7 @@ class AboutGameViewController: UIViewController {
     var arrayOfScreenshots: [UIImage] = []
 
     override func viewWillAppear(_ animated: Bool) {
-        SettingsViewController.applyUserSettings(currentClass: self, table: nil, collection: nil, searchController: nil, tableForHide: nil)
+        UserSettingsRegistration.apply(currentClass: self, table: nil, collection: nil, searchController: nil, tableForHide: nil)
     }
 
     override func viewDidLoad() {

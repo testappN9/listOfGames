@@ -13,13 +13,13 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var userPhoto: UIView!
     let arrayOfNames = ["View", "Theme", "Background"]
     let arrayOfAllStates = [("table", "icons"), ("light", "dark"), ("white", "gray")]
-    var arrayOfCurrentStates = [UserDefaults.standard.integer(forKey: "viewState"), UserDefaults.standard.integer(forKey: "themeState"), UserDefaults.standard.integer(forKey: "backgroundState")]
+    var arrayOfCurrentStates = [UserDefaults.standard.integer(forKey: SettingsItems.viewState.rawValue), UserDefaults.standard.integer(forKey: SettingsItems.themeState.rawValue), UserDefaults.standard.integer(forKey: SettingsItems.backgroundState.rawValue)]
         
     override func viewDidLoad() {
         super.viewDidLoad()
         registerTableSettings()
         userPhoto.layer.cornerRadius = 15
-        SettingsViewController.applyUserSettings(currentClass: self, table: tableSettings, collection: nil, searchController: nil, tableForHide: nil)
+        UserSettingsRegistration.apply(currentClass: self, table: tableSettings, collection: nil, searchController: nil, tableForHide: nil)
     }
     func registerTableSettings() {
         tableSettings.delegate = self
@@ -27,36 +27,6 @@ class SettingsViewController: UIViewController {
         tableSettings.register(UINib(nibName: "TableSettingsCell", bundle: nil), forCellReuseIdentifier: "TableSettingsCell")
         tableSettings.separatorColor = .clear
         tableSettings.allowsSelection = false
-    }
-    static func applyUserSettings(currentClass: AnyObject, table: UITableView?, collection: UICollectionView?, searchController: UISearchController?, tableForHide: UITableView?) {
-        let nameOfStateArray = ["viewState", "themeState", "backgroundState"]
-        for name in nameOfStateArray {
-            let value = UserDefaults.standard.integer(forKey: name)
-            switch (name, value) {
-            case (nameOfStateArray[0], 0):
-                tableForHide?.isHidden = false
-            case (nameOfStateArray[0], 1):
-                tableForHide?.isHidden = true
-            case (nameOfStateArray[1], 0):
-                searchController?.searchBar.barTintColor = .systemGray6
-                currentClass.navigationController?.navigationBar.barTintColor = .systemGray6
-                currentClass.tabBarController??.tabBar.barTintColor = .systemGray6
-            case (nameOfStateArray[1], 1):
-                searchController?.searchBar.barTintColor = .darkGray
-                currentClass.navigationController?.navigationBar.barTintColor = .black
-                currentClass.tabBarController?.tabBar.barTintColor = .black
-            case (nameOfStateArray[2], 0):
-                currentClass.view?.backgroundColor = .white
-                table?.backgroundColor = .white
-                collection?.backgroundColor = .white
-            case (nameOfStateArray[2], 1):
-                currentClass.view?.backgroundColor = .lightGray
-                table?.backgroundColor = .lightGray
-                collection?.backgroundColor = .lightGray
-            default:
-                break
-            }
-        }
     }
 }
 
@@ -83,17 +53,14 @@ extension SettingsViewController: TableSettingsCellDelegate {
         }
         switch indexPathRow {
         case 0:
-            saveToUserDefaults("viewState")
+            saveToUserDefaults(SettingsItems.viewState.rawValue)
         case 1:
-            saveToUserDefaults("themeState")
+            saveToUserDefaults(SettingsItems.themeState.rawValue)
         case 2:
-            saveToUserDefaults("backgroundState")
+            saveToUserDefaults(SettingsItems.backgroundState.rawValue)
         default:
             break
         }
-        SettingsViewController.applyUserSettings(currentClass: self, table: tableSettings, collection: nil, searchController: nil, tableForHide: nil)
+        UserSettingsRegistration.apply(currentClass: self, table: tableSettings, collection: nil, searchController: nil, tableForHide: nil)
     }
 }
-
-
-
