@@ -401,12 +401,44 @@
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="CfL-Zn-sE6"/>
+                        <segue destination="8rH-mp-lB5" kind="relationship" relationship="viewControllers" id="HsI-87-7Uf"/>
                         <segue destination="kVa-EY-Snc" kind="relationship" relationship="viewControllers" id="TTc-rQ-beh"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yYs-H4-glz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53.623188405797109" y="75"/>
+            <point key="canvasLocation" x="132" y="75"/>
+        </scene>
+        <!--Saved-->
+        <scene sceneID="yWi-Ia-gED">
+            <objects>
+                <viewController id="8rH-mp-lB5" userLabel="Saved" customClass="FavoritesViewController" customModule="tg" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="chw-JS-BAa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XNa-0U-bZL">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Mtb-rD-gP8"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="XNa-0U-bZL" firstAttribute="top" secondItem="Mtb-rD-gP8" secondAttribute="top" id="GsB-T0-MXb"/>
+                            <constraint firstItem="XNa-0U-bZL" firstAttribute="leading" secondItem="Mtb-rD-gP8" secondAttribute="leading" id="M9r-Zv-CRl"/>
+                            <constraint firstItem="Mtb-rD-gP8" firstAttribute="trailing" secondItem="XNa-0U-bZL" secondAttribute="trailing" id="ZCB-jZ-4nQ"/>
+                            <constraint firstItem="Mtb-rD-gP8" firstAttribute="bottom" secondItem="XNa-0U-bZL" secondAttribute="bottom" id="nkj-Ji-47f"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="favorites" id="LhH-4D-Xoh" userLabel="Saved"/>
+                    <connections>
+                        <outlet property="tableFavorites" destination="XNa-0U-bZL" id="3BJ-Ck-dKC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wyM-3C-Vuv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="963.76811594202911" y="806.91964285714278"/>
         </scene>
     </scenes>
     <resources>

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ListOfGamesViewController: UIViewController {
     
@@ -29,6 +30,7 @@ class ListOfGamesViewController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
     var resultsOfSearch = [Game]()
     var dictionaryOfLogo = [Int: UIImage]()
+    var arrayOfAddedGames = [Int]()
 
     struct Properties {
         static let cellName = "ListOfGamesViewCell"
@@ -48,6 +50,9 @@ class ListOfGamesViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         SettingsViewController.applyUserSettings(currentClass: self, table: tableListOfGame, collection: collectionListOfGames, searchController: searchController, tableForHide: tableListOfGame)
+        checkingAddedGames()
+        tableListOfGame.reloadData()
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +63,22 @@ class ListOfGamesViewController: UIViewController {
         registerListOfGame()
         registerTableListOfGame()
         loadingAnimation()
+    }
+    func checkingAddedGames() {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        var data: [GamesCollection]?
+        let fetchRequest: NSFetchRequest<GamesCollection> = GamesCollection.fetchRequest()
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            data = try context.fetch(fetchRequest)
+        } catch {
+            print("error")
+        }
+        guard let dataApproved = data else { return }
+        arrayOfAddedGames = []
+        for item in dataApproved {
+            arrayOfAddedGames.append(Int(item.id))
+        }
     }
     func searchControllerSettings() {
         searchController.searchResultsUpdater = self
@@ -113,8 +134,14 @@ extension ListOfGamesViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableListOfGame.dequeueReusableCell(withIdentifier: "cellTableListOfGame", for: indexPath) as? TableListOfGameCell else { return UITableViewCell() }
         let id = resultsOfSearch[indexPath.row].id
+        var colorOfAdd = UIColor.red
+        for item in arrayOfAddedGames {
+            if item == id {
+                colorOfAdd = .gray
+            }
+        }
         let image = dictionaryOfLogo[id]
-        cell.config(game: resultsOfSearch[indexPath.row], logoOfGame: image)
+        cell.config(game: resultsOfSearch[indexPath.row], logoOfGame: image, colorOfAdd: colorOfAdd)
         cell.delegate = self
         return cell
     }
@@ -144,6 +171,16 @@ extension ListOfGamesViewController: TableListOfGameCellDelegate {
         if let vcAboutApp = mainStory.instantiateViewController(identifier: "aboutApp") as? AboutGameViewController {
             vcAboutApp.game = game
             navigationController?.pushViewController(vcAboutApp, animated: true)
+        }
+    }
+    func stateOfAdd(_ id: Int, _ state: Bool) {
+        if state == true {
+            arrayOfAddedGames.append(id)
+        }
+        else {
+            if let index = arrayOfAddedGames.firstIndex(of: id) {
+                arrayOfAddedGames.remove(at: index)
+            }
         }
     }
 }
