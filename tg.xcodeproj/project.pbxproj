@@ -23,6 +23,7 @@
 		188F3728272FE9F700E7B5EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188F3727272FE9F700E7B5EF /* Assets.xcassets */; };
 		188F372B272FE9F700E7B5EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 188F3729272FE9F700E7B5EF /* LaunchScreen.storyboard */; };
 		188F3734272FF22200E7B5EF /* ListOfGamesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188F3732272FF22200E7B5EF /* ListOfGamesViewCell.swift */; };
+		1892803A27AFFD8B003DBC76 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1892803927AFFD8B003DBC76 /* CoreDataManager.swift */; };
 		18A2B9C6273D54EC00814DC5 /* CollectionScreenshotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A2B9C4273D54EC00814DC5 /* CollectionScreenshotsCell.swift */; };
 		18A2B9C7273D54EC00814DC5 /* CollectionScreenshotsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A2B9C5273D54EC00814DC5 /* CollectionScreenshotsCell.xib */; };
 		18C4737B276771C900715F2F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C4737A276771C900715F2F /* SettingsViewController.swift */; };
@@ -55,6 +56,7 @@
 		188F372A272FE9F700E7B5EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		188F372C272FE9F700E7B5EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		188F3732272FF22200E7B5EF /* ListOfGamesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfGamesViewCell.swift; sourceTree = "<group>"; };
+		1892803927AFFD8B003DBC76 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		18A2B9C4273D54EC00814DC5 /* CollectionScreenshotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionScreenshotsCell.swift; sourceTree = "<group>"; };
 		18A2B9C5273D54EC00814DC5 /* CollectionScreenshotsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionScreenshotsCell.xib; sourceTree = "<group>"; };
 		18C4737A276771C900715F2F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 		188F371D272FE9F400E7B5EF /* tg */ = {
 			isa = PBXGroup;
 			children = (
+				1892803B27AFFD95003DBC76 /* CoreData */,
 				18093A1327A8ABF20000A0F6 /* Favorites */,
 				187E3D2627453A0E00CD433E /* MainScreenListOfGames */,
 				18C4737C27677DB600715F2F /* Settings */,
@@ -177,6 +180,14 @@
 				18C4D066276168DA00992B68 /* LoadingAnimation.swift */,
 			);
 			path = tg;
+			sourceTree = "<group>";
+		};
+		1892803B27AFFD95003DBC76 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				1892803927AFFD8B003DBC76 /* CoreDataManager.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		18C4737C27677DB600715F2F /* Settings */ = {
@@ -303,6 +314,7 @@
 				188F3723272FE9F400E7B5EF /* ListOfGamesViewController.swift in Sources */,
 				18E0E6C22750FBC80031D7A8 /* TableListOfGameCell.swift in Sources */,
 				18445E3A2732A6C100D40700 /* NetworkStruct.swift in Sources */,
+				1892803A27AFFD8B003DBC76 /* CoreDataManager.swift in Sources */,
 				18093A1227A2A55B0000A0F6 /* tg.xcdatamodeld in Sources */,
 				18C4D067276168DA00992B68 /* LoadingAnimation.swift in Sources */,
 				183FCD112742E90100CD2C10 /* ScreenshotViewer.swift in Sources */,

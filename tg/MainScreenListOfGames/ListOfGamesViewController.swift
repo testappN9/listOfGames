@@ -64,16 +64,7 @@ class ListOfGamesViewController: UIViewController {
         loadingAnimation()
     }
     func checkingAddedGames() {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        var data: [GamesCollection]?
-        let fetchRequest: NSFetchRequest<GamesCollection> = GamesCollection.fetchRequest()
-        fetchRequest.returnsObjectsAsFaults = false
-        do {
-            data = try context.fetch(fetchRequest)
-        } catch {
-            print("error")
-        }
-        guard let dataApproved = data else { return }
+        guard let dataApproved = CoreDataManager.dataManager.receiveData() else { return }
         arrayOfAddedGames = []
         for item in dataApproved {
             arrayOfAddedGames.append(Int(item.id))

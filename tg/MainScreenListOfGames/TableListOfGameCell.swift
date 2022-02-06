@@ -64,33 +64,14 @@ class TableListOfGameCell: UITableViewCell {
     }
     @IBAction func addToCollection(_ sender: Any) {
         guard let gameApproved = game else { return }
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        var data: [GamesCollection]?
-        let fetchRequest: NSFetchRequest<GamesCollection> = GamesCollection.fetchRequest()
-        fetchRequest.returnsObjectsAsFaults = false
-        fetchRequest.predicate = NSPredicate(format: "id = \(gameApproved.id)")
-        do {
-            data = try context.fetch(fetchRequest)
-        } catch {
-            print("error")
-        }
-        if data == [] {
-            let object = GamesCollection(context: context)
-            object.id = Int64(gameApproved.id)
-            object.name = gameApproved.name
-            object.image = gameLogo?.pngData()
+        if CoreDataManager.dataManager.receiveItem(gameApproved.id) == nil {
+            CoreDataManager.dataManager.saveItem(id: gameApproved.id, name: gameApproved.name, image: gameLogo)
             delegate?.stateOfAdd(gameApproved.id, true)
             buttonAdd.setTitleColor(.gray, for: .normal)
         } else {
-            guard let object = data else { return }
-            context.delete(object[0])
+            CoreDataManager.dataManager.deleteItem(id: gameApproved.id)
             delegate?.stateOfAdd(gameApproved.id, false)
             buttonAdd.setTitleColor(.red, for: .normal)
-        }
-        do {
-            try context.save()
-        } catch {
-            print("error")
         }
     }
 }

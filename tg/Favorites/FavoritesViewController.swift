@@ -14,28 +14,13 @@ class FavoritesViewController: UIViewController {
     var arrayOfAddedGames: [GamesCollection]?
     
     override func viewWillAppear(_ animated: Bool) {
-        arrayOfAddedGames = uploadData(nil).0
+        arrayOfAddedGames = CoreDataManager.dataManager.receiveData()
         tableFavorites.reloadData()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Favorites"
         registerTableFavorites()
-    }
-    func uploadData(_ id: Int?) -> ([GamesCollection]?, NSManagedObjectContext) {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<GamesCollection> = GamesCollection.fetchRequest()
-        fetchRequest.returnsObjectsAsFaults = false
-        if let realId = id {
-            fetchRequest.predicate = NSPredicate(format: "id = \(realId)")
-        }
-        var data: [GamesCollection]?
-        do {
-            data = try context.fetch(fetchRequest)
-        } catch {
-            print("error")
-        }
-        return (data, context)
     }
     func registerTableFavorites() {
         tableFavorites.delegate = self
@@ -67,15 +52,8 @@ extension FavoritesViewController: TableListFavoritesOfGameCellDelegate {
     func alertDelete(_ id: Int) {
         let alert = UIAlertController(title: "Delete this game?", message: nil, preferredStyle: .alert)
         let actionOkey = UIAlertAction(title: "Okey", style: .default) { ACTION in
-            let (data, context) = self.uploadData(id)
-            guard let object = data else { return }
-            context.delete(object[0])
-            do {
-                try context.save()
-            } catch {
-                print("error")
-            }
-            self.arrayOfAddedGames = self.uploadData(nil).0
+            CoreDataManager.dataManager.deleteItem(id: id)
+            self.arrayOfAddedGames = CoreDataManager.dataManager.receiveData()
             self.tableFavorites.reloadData()
         }
         let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
