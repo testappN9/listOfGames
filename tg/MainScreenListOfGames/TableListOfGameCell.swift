@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class TableListOfGameCell: UITableViewCell {
     
@@ -16,17 +17,24 @@ class TableListOfGameCell: UITableViewCell {
     @IBOutlet weak var mainStackView: UIStackView!
     @IBOutlet weak var buttonDetails: UIButton!
     @IBOutlet weak var mainContainer: UIView!
+    @IBOutlet weak var buttonAdd: UIButton!
     var game: Game?
     weak var delegate: TableListOfGameCellDelegate?
-
+    var gameLogo: UIImage?
+    var colorOfAddReuse = UIColor.red
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         cellDesign()
     }
-    public func config(game: Game, logoOfGame: UIImage?) {
-
+    override func prepareForReuse() {
+        buttonAdd.setTitleColor(colorOfAddReuse, for: .normal)
+    }
+    public func config(game: Game, logoOfGame: UIImage?, colorOfAdd: UIColor) {
+        gameLogo = logoOfGame
         self.game = game
         name.text = game.name
+        buttonAdd.setTitleColor(colorOfAdd, for: .normal)
         logo.image = logoOfGame
         if let released = game.released {
             year.text = dateFormatter(released)
@@ -54,8 +62,21 @@ class TableListOfGameCell: UITableViewCell {
         guard let game = game else { return }
         delegate?.openGameDetails(game)
     }
+    @IBAction func addToCollection(_ sender: Any) {
+        guard let gameApproved = game else { return }
+        if CoreDataManager.dataManager.receiveItem(gameApproved.id) == nil {
+            CoreDataManager.dataManager.saveItem(id: gameApproved.id, name: gameApproved.name, image: gameLogo)
+            delegate?.stateOfAdd(gameApproved.id, true)
+            buttonAdd.setTitleColor(.gray, for: .normal)
+        } else {
+            CoreDataManager.dataManager.deleteItem(id: gameApproved.id)
+            delegate?.stateOfAdd(gameApproved.id, false)
+            buttonAdd.setTitleColor(.red, for: .normal)
+        }
+    }
 }
 
 protocol TableListOfGameCellDelegate: AnyObject {
     func openGameDetails(_ game: Game)
+    func stateOfAdd(_ id: Int, _ state: Bool)
 }
