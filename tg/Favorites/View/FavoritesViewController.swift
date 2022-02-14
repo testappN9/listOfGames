@@ -9,19 +9,22 @@ import Foundation
 import UIKit
 import CoreData
 
-class FavoritesViewController: UIViewController {
+class FavoritesViewController: UIViewController, FavoritesPresenterDelegate {
     @IBOutlet weak var tableFavorites: UITableView!
-    var arrayOfAddedGames: [GamesCollection]?
+    var presenter: FavoritesViewDelegate!
     
-    override func viewWillAppear(_ animated: Bool) {
-        arrayOfAddedGames = CoreDataManager.dataManager.receiveData()
-        tableFavorites.reloadData()
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Favorites"
+        presenter = FavoritesPresenter(view: self)
+        self.title = presenter.screenTitle
         registerTableFavorites()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.reloadListOfGames()
+        tableFavorites.reloadData()
+    }
+    
     func registerTableFavorites() {
         tableFavorites.delegate = self
         tableFavorites.dataSource = self
@@ -32,16 +35,16 @@ class FavoritesViewController: UIViewController {
 
 extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayOfAddedGames?.count ?? 0
+        return presenter.tableNumberOfRows()
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableFavorites.dequeueReusableCell(withIdentifier: "cellFavoritesTableListOfGame", for: indexPath) as? FavoritesTableViewCell else { return UITableViewCell() }
-        if let objects = arrayOfAddedGames {
-            if let data = objects[indexPath.row].image {
+        if let cellData = presenter.tableCellData(indexPath: indexPath.row) {
+            cell.id = cellData.id
+            cell.name.text = cellData.name
+            if let data = cellData.image {
                 cell.logo.image = UIImage(data: data as Data)
             }
-            cell.name.text = objects[indexPath.row].name
-            cell.id = Int(objects[indexPath.row].id)
         }
         cell.delegate = self
         return cell
@@ -52,8 +55,8 @@ extension FavoritesViewController: TableListFavoritesOfGameCellDelegate {
     func alertDelete(_ id: Int) {
         let alert = UIAlertController(title: "Delete this game?", message: nil, preferredStyle: .alert)
         let actionOkey = UIAlertAction(title: "Okey", style: .default) { ACTION in
-            CoreDataManager.dataManager.deleteItem(id: id)
-            self.arrayOfAddedGames = CoreDataManager.dataManager.receiveData()
+            self.presenter.tableDeleteCell(id: id)
+            self.presenter.reloadListOfGames()
             self.tableFavorites.reloadData()
         }
         let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

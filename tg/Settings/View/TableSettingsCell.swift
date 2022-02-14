@@ -22,6 +22,4 @@ class TableSettingsCell: UITableViewCell {
     }
 }
 
-protocol TableSettingsCellDelegate: AnyObject {
-    func changeOption(_ indexPathRow: Int, _ selectedIndex: Int)
-}
+

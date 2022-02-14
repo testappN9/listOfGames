@@ -21,27 +21,15 @@ class ListOfGamesViewCell: UICollectionViewCell {
     let properties = Properties()
     override func awakeFromNib() {
         super.awakeFromNib()
-
         logo.layer.cornerRadius = properties.cornerRadius
         publ.textColor = properties.publTextColor
         rating.textColor = properties.ratingTextColor
     }
 
-    public func config(game: Game, logoOfGame: UIImage?) {
+    public func config(game: MainScreenCellData) {
         name.text = game.name
-        logo.image = logoOfGame
-        if let released = game.released {
-            publ.text = dateFormatter(released)
-        }
-        if let rate = game.rating {
-            rating.text = String(rate)
-        }
-    }
-    func dateFormatter(_ date: String) -> String {
-        let formatterDate = DateFormatter()
-        formatterDate.dateFormat = "yyyy-MM-dd"
-        guard let year = formatterDate.date(from: date) else { return "unknown" }
-        formatterDate.dateFormat = "yyyy"
-        return formatterDate.string(from: year)
+        logo.image = game.image
+        publ.text = game.year
+        rating.text = game.rating
     }
 }
