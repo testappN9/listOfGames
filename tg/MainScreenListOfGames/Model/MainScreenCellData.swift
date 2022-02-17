@@ -16,12 +16,12 @@ struct MainScreenCellData {
     var rating: String?
     var year: String?
     
-    init(id: Int, name: String?, colorOfButton: UIColor, image: UIImage?, rating: String?, year: String?) {
-        self.id = id
-        self.name = name
+    init(game: Game, colorOfButton: UIColor, image: UIImage?, year: String?) {
+        self.id = game.id
+        self.name = game.name
         self.colorOfButton = colorOfButton
         self.image = image
-        self.rating = rating
+        self.rating = String(game.rating ?? 0)
         self.year = year
     }
 }

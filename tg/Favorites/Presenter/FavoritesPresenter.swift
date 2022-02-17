@@ -28,10 +28,7 @@ class FavoritesPresenter: FavoritesViewDelegate {
     func tableCellData(indexPath: Int) -> CellData? {
         let games = arrayOfAddedGames
         let gameForCell = games[indexPath]
-        let id = Int(gameForCell.id)
-        let name = gameForCell.name
-        let imageData = gameForCell.image
-        return CellData(id: id, name: name, image: imageData)
+        return CellData(game: gameForCell)
     }
     
     func tableDeleteCell(id: Int) -> Int {

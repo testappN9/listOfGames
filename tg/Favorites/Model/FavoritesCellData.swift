@@ -12,9 +12,9 @@ struct CellData {
     var name: String?
     var image: Data?
     
-    init(id: Int?, name: String?, image: Data?) {
-        self.id = id
-        self.name = name
-        self.image = image
+    init(game: GamesCollection) {
+        id = Int(game.id)
+        name = game.name
+        image = game.image
     }
 }

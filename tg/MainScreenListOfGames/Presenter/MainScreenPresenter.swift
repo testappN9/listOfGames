@@ -23,7 +23,7 @@ class MainScreenPresenter: MainScreenViewDelegate {
     var dictionaryOfLogo = [Int: UIImage]()
     var arrayOfAddedGames = [Int]()
     
-    struct DateFormat {
+    struct DateFormatModel {
         static let before = "yyyy-MM-dd"
         static let after = "yyyy"
         static let incorrectData = "unknown"
@@ -66,27 +66,24 @@ class MainScreenPresenter: MainScreenViewDelegate {
     
     func fetchCellData(indexPath: Int) -> MainScreenCellData {
         let game = resultsOfSearch[indexPath]
-        let id = game.id
-        let name = game.name
-        let rating = game.rating ?? 0
-        let image = dictionaryOfLogo[id]
+        let image = dictionaryOfLogo[game.id]
         var colorOfButton = UIColor.red
-        for item in arrayOfAddedGames where item == id {
+        for item in arrayOfAddedGames where item == game.id {
                 colorOfButton = .gray
         }
         var year: String?
-        if let released = resultsOfSearch[indexPath].released {
+        if let released = game.released {
             year = dateFormatter(released)
         }
         
         func dateFormatter(_ date: String) -> String {
             let formatterDate = DateFormatter()
-            formatterDate.dateFormat = DateFormat.before
-            guard let year = formatterDate.date(from: date) else { return DateFormat.incorrectData }
-            formatterDate.dateFormat = DateFormat.after
+            formatterDate.dateFormat = DateFormatModel.before
+            guard let year = formatterDate.date(from: date) else { return DateFormatModel.incorrectData }
+            formatterDate.dateFormat = DateFormatModel.after
             return formatterDate.string(from: year)
         }
-        return MainScreenCellData(id: id, name: name, colorOfButton: colorOfButton, image: image, rating: String(rating), year: year)
+        return MainScreenCellData(game: game, colorOfButton: colorOfButton, image: image, year: year)
     }
     
     func getGameItem(indexPath: Int) -> Game {
