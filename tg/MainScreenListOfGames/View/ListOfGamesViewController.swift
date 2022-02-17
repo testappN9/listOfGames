@@ -69,10 +69,10 @@ class ListOfGamesViewController: UIViewController, MainScreenPresenterDelegate {
     }
     
     func reloadAfterUpdate() {
-        weak var sw = self
+        weak var currentController = self
         presenter.loadLogoOfGames()
-        sw?.animatedСircle.isHidden = true
-        sw?.animatedСircle.animationStop()
+        currentController?.animatedСircle.isHidden = true
+        currentController?.animatedСircle.animationStop()
         tableListOfGame.reloadData()
         collectionListOfGames.reloadData()
     }

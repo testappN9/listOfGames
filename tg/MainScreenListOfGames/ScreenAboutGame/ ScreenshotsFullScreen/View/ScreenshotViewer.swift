@@ -11,10 +11,11 @@ class ScreenshotViewer: UIViewController, ScreenshotFullPresenterDelegate {
     @IBOutlet weak var imageBackground: UIImageView!
     @IBOutlet weak var collectionOfScreenshots: UICollectionView!
     var presenter: ScreenshotFullViewDelegate!
-
+    var selectedScreenshot = 0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        presenter = ScreenshotFullPresenter(view: self)
+        presenter = ScreenshotFullPresenter(view: self, activeScreenshot: selectedScreenshot)
     }
     
     override func viewDidLoad() {

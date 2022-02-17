@@ -10,7 +10,7 @@ import CoreData
 
 class FavoritesPresenter: FavoritesViewDelegate {
     weak var view: FavoritesPresenterDelegate?
-    var arrayOfAddedGames: [GamesCollection]?
+    var arrayOfAddedGames: [GamesCollection] = []
     let screenTitle = "Favorites"
     
     required init(view: FavoritesPresenterDelegate) {
@@ -18,25 +18,28 @@ class FavoritesPresenter: FavoritesViewDelegate {
     }
     
     func reloadListOfGames() {
-        arrayOfAddedGames = CoreDataManager.dataManager.receiveData()
+        arrayOfAddedGames = CoreDataManager.dataManager.receiveData() ?? []
     }
     
     func tableNumberOfRows() -> Int {
-        return CoreDataManager.dataManager.receiveData()?.count ?? 0
+        return arrayOfAddedGames.count
     }
     
     func tableCellData(indexPath: Int) -> CellData? {
-        if let objects = arrayOfAddedGames {
-            let id = Int(objects[indexPath].id)
-            let name = objects[indexPath].name
-            let imageData = objects[indexPath].image
-            return CellData(id: id, name: name, image: imageData)
-        } else {
-            return nil
-        }
+        let games = arrayOfAddedGames
+        let gameForCell = games[indexPath]
+        let id = Int(gameForCell.id)
+        let name = gameForCell.name
+        let imageData = gameForCell.image
+        return CellData(id: id, name: name, image: imageData)
     }
     
-    func tableDeleteCell(id: Int) {
-        CoreDataManager.dataManager.deleteItem(id: id)
+    func tableDeleteCell(id: Int) -> Int {
+        for (index, value) in arrayOfAddedGames.enumerated() where value.id == id {
+            arrayOfAddedGames.remove(at: index)
+            CoreDataManager.dataManager.deleteItem(id: id)
+            return index
+        }
+        return 0
     }
 }

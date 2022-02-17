@@ -22,7 +22,12 @@ class MainScreenPresenter: MainScreenViewDelegate {
     var resultsOfSearch = [Game]()
     var dictionaryOfLogo = [Int: UIImage]()
     var arrayOfAddedGames = [Int]()
-    let linkForData = "https://api.rawg.io/api/games?key=1f1e96182ddd49dab48e0f16889a1aae"
+    
+    struct DateFormat {
+        static let before = "yyyy-MM-dd"
+        static let after = "yyyy"
+        static let incorrectData = "unknown"
+    }
 
     required init(view: MainScreenPresenterDelegate) {
         self.view = view
@@ -42,9 +47,8 @@ class MainScreenPresenter: MainScreenViewDelegate {
     }
     
     func receiveDataFromServer() {
-        guard let url = URL(string: linkForData) else {return}
-        NetworkManager.networkManager.getDataFromServer(url, complitionHandler: { data in
-                self.gameList = data.results ?? []
+        NetworkManager.networkManager.getDataFromServer(typeOfData: .allGames, gameId: nil, complitionHandler: { [weak self] data in
+            self?.gameList = data.results ?? []
         })
     }
     
@@ -61,15 +65,14 @@ class MainScreenPresenter: MainScreenViewDelegate {
     }
     
     func fetchCellData(indexPath: Int) -> MainScreenCellData {
-        let id = resultsOfSearch[indexPath].id
-        let name = resultsOfSearch[indexPath].name
-        let rating = resultsOfSearch[indexPath].rating ?? 0
+        let game = resultsOfSearch[indexPath]
+        let id = game.id
+        let name = game.name
+        let rating = game.rating ?? 0
         let image = dictionaryOfLogo[id]
         var colorOfButton = UIColor.red
-        for item in arrayOfAddedGames {
-            if item == id {
+        for item in arrayOfAddedGames where item == id {
                 colorOfButton = .gray
-            }
         }
         var year: String?
         if let released = resultsOfSearch[indexPath].released {
@@ -78,12 +81,11 @@ class MainScreenPresenter: MainScreenViewDelegate {
         
         func dateFormatter(_ date: String) -> String {
             let formatterDate = DateFormatter()
-            formatterDate.dateFormat = "yyyy-MM-dd"
-            guard let year = formatterDate.date(from: date) else { return "unknown" }
-            formatterDate.dateFormat = "yyyy"
+            formatterDate.dateFormat = DateFormat.before
+            guard let year = formatterDate.date(from: date) else { return DateFormat.incorrectData }
+            formatterDate.dateFormat = DateFormat.after
             return formatterDate.string(from: year)
         }
-        
         return MainScreenCellData(id: id, name: name, colorOfButton: colorOfButton, image: image, rating: String(rating), year: year)
     }
     

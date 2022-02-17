@@ -16,7 +16,6 @@ class AboutGameViewController: UIViewController, AboutGamePresenterDelegate {
     @IBOutlet weak var collectionScreenshots: UICollectionView!
     @IBOutlet weak var collectionScreenshotsHeight: NSLayoutConstraint!
     var presenter: AboutGameViewDelegate!
-//    var heightCollectionItem: Float = 0
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -68,15 +67,13 @@ extension AboutGameViewController: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionScreenshots.dequeueReusableCell(withReuseIdentifier: "CollectionScreenshotsCell", for: indexPath) as! CollectionScreenshotsCell
         cell.screenshot.image = presenter.screenshotForCell(indexPath: indexPath.item)
         return cell
-        
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let mainStory = UIStoryboard(name: "Main", bundle: nil)
         if let screenshotViewer = mainStory.instantiateViewController(identifier: "ScreenshotViewer") as? ScreenshotViewer {
             screenshotViewer.presenter.arrayOfScreenshots = presenter.arrayOfScreenshots
-            screenshotViewer.presenter.activeScreenshot = indexPath.item
+            screenshotViewer.selectedScreenshot = indexPath.item
             screenshotViewer.modalTransitionStyle = .flipHorizontal
             screenshotViewer.modalPresentationStyle = .automatic
             present(screenshotViewer, animated: true, completion: nil)

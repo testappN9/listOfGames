@@ -41,6 +41,7 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableFavorites.dequeueReusableCell(withIdentifier: "cellFavoritesTableListOfGame", for: indexPath) as? FavoritesTableViewCell else { return UITableViewCell() }
         if let cellData = presenter.tableCellData(indexPath: indexPath.row) {
             cell.id = cellData.id
+            cell.indexPath = indexPath
             cell.name.text = cellData.name
             if let data = cellData.image {
                 cell.logo.image = UIImage(data: data as Data)
@@ -55,9 +56,8 @@ extension FavoritesViewController: TableListFavoritesOfGameCellDelegate {
     func alertDelete(_ id: Int) {
         let alert = UIAlertController(title: "Delete this game?", message: nil, preferredStyle: .alert)
         let actionOkey = UIAlertAction(title: "Okey", style: .default) { ACTION in
-            self.presenter.tableDeleteCell(id: id)
-            self.presenter.reloadListOfGames()
-            self.tableFavorites.reloadData()
+            let index: Int = self.presenter.tableDeleteCell(id: id)
+            self.tableFavorites.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
         }
         let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(actionOkey)

@@ -13,7 +13,7 @@ class ScreenshotFullPresenter: ScreenshotFullViewDelegate {
     var arrayOfScreenshots: [UIImage] = []
     var activeScreenshot = 0
 
-    required init(view: ScreenshotFullPresenterDelegate) {
+    required init(view: ScreenshotFullPresenterDelegate, activeScreenshot: Int) {
         self.view = view
     }
     
@@ -23,6 +23,7 @@ class ScreenshotFullPresenter: ScreenshotFullViewDelegate {
     
     func imageForCell(indexPath: Int) -> UIImage? {
         var image: UIImage?
+        //activeScreenshot = indexPath
         if indexPath + activeScreenshot < arrayOfScreenshots.count {
             image = arrayOfScreenshots[indexPath + activeScreenshot]
         } else {

@@ -31,23 +31,20 @@ class AboutGamePresenter: AboutGameViewDelegate {
     
     func receiveDataFromServer() {
         guard let gameId = game?.id else {return}
-        let linkDescription = "https://api.rawg.io/api/games/\(gameId)?key=1f1e96182ddd49dab48e0f16889a1aae"
-        let linkScreenshots = "https://api.rawg.io/api/games/\(gameId)/screenshots?key=1f1e96182ddd49dab48e0f16889a1aae"
-        guard let urlDescription = URL(string: linkDescription) else { return}
-        guard let urlScreenshots = URL(string: linkScreenshots) else { return}
-        NetworkManager.networkManager.getDataFromServer(urlDescription, complitionHandler: { data in
-            self.descriptionOfGame = data.gameDescription()
+        
+        NetworkManager.networkManager.getDataFromServer(typeOfData: .description, gameId: gameId, complitionHandler: { [weak self] data in
+            self?.descriptionOfGame = data.gameDescription()
         })
-        NetworkManager.networkManager.getDataFromServer(urlScreenshots, complitionHandler: { data in
-            self.screenshots = data.results ?? []
+        NetworkManager.networkManager.getDataFromServer(typeOfData: .screenshots, gameId: gameId, complitionHandler: { [weak self] data in
+            self?.screenshots = data.results ?? []
         })
     }
     
     func collectionHeightCalculation(frameWidth: CGFloat) -> CGFloat {
         var height: CGFloat = 0
-        for el in screenshots {
-            if el.height != nil && el.width != nil {
-                height += 2 + CGFloat(el.height! / el.width! * Float(frameWidth - 20))
+        for item in screenshots {
+            if item.height != nil && item.width != nil {
+                height += 2 + CGFloat(item.height! / item.width! * Float(frameWidth - 20))
             }
         }
         return height

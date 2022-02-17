@@ -11,7 +11,7 @@ import UIKit
 protocol ScreenshotFullViewDelegate: AnyObject {
     var arrayOfScreenshots: [UIImage] { get set }
     var activeScreenshot: Int { get set }
-    init(view: ScreenshotFullPresenterDelegate)
+    init(view: ScreenshotFullPresenterDelegate, activeScreenshot: Int)
     func applyTheme()
     func imageForCell(indexPath: Int) -> UIImage?
 }

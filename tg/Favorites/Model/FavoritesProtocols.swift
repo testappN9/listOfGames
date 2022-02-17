@@ -13,7 +13,7 @@ protocol FavoritesViewDelegate: AnyObject {
     func reloadListOfGames()
     func tableNumberOfRows() -> Int
     func tableCellData(indexPath: Int) -> CellData?
-    func tableDeleteCell(id: Int)
+    func tableDeleteCell(id: Int) -> Int
 }
 protocol FavoritesPresenterDelegate: AnyObject {
 }

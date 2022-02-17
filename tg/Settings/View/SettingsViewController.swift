@@ -34,15 +34,19 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.arrayOfCurrentStates.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableSettings.dequeueReusableCell(withIdentifier: "TableSettingsCell", for: indexPath) as! TableSettingsCell
-        let data = presenter.tableCellData(indexPath: indexPath.row)
-        cell.name.text = data.name
-        cell.segmentedControl.setTitle(data.option1, forSegmentAt: 0)
-        cell.segmentedControl.setTitle(data.option2, forSegmentAt: 1)
-        cell.segmentedControl.selectedSegmentIndex = data.selectedOption
         cell.indexPathRow = indexPath.row
-        cell.delegate = presenter as? TableSettingsCellDelegate
+        cell.delegate = self
+        let cellData = presenter.tableCellData(indexPath: indexPath.row)
+        cell.cellConfig(data: cellData)
         return cell
+    }
+}
+
+extension SettingsViewController: TableSettingsCellDelegate {
+    func handlingCellChangingOption(indexPath: Int, selectedIndex: Int) {
+        presenter.changeOption(indexPath, selectedIndex)
     }
 }

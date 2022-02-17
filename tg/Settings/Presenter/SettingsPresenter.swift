@@ -31,9 +31,7 @@ class SettingsPresenter: SettingsViewDelegate {
         let selectedOption = arrayOfCurrentStates[indexPath]
         return SettingsCellData(name: name, option1: option1, option2: option2, selectedOption: selectedOption)
     }
-}
 
-extension SettingsPresenter: TableSettingsCellDelegate {
     func changeOption(_ indexPathRow: Int , _ selectedIndex: Int) {
         func saveToUserDefaults (_ key: String) {
             UserDefaults.standard.setValue(selectedIndex, forKey: key)

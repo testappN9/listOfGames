@@ -15,11 +15,12 @@ protocol SettingsViewDelegate: AnyObject {
     init(view: SettingsPresenterDelegate)
     func applyTheme()
     func tableCellData(indexPath: Int) -> SettingsCellData
+    func changeOption(_ indexPathRow: Int , _ selectedIndex: Int)
 }
 
 protocol SettingsPresenterDelegate: AnyObject {
 }
 
 protocol TableSettingsCellDelegate: AnyObject {
-    func changeOption(_ indexPathRow: Int, _ selectedIndex: Int)
+    func handlingCellChangingOption(indexPath: Int, selectedIndex: Int)
 }
