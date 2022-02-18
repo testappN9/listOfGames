@@ -27,28 +27,22 @@ class TableListOfGameCell: UITableViewCell {
         super.awakeFromNib()
         cellDesign()
     }
+    
     override func prepareForReuse() {
         buttonAdd.setTitleColor(colorOfAddReuse, for: .normal)
     }
-    public func config(game: Game, logoOfGame: UIImage?, colorOfAdd: UIColor) {
-        gameLogo = logoOfGame
-        self.game = game
-        name.text = game.name
-        buttonAdd.setTitleColor(colorOfAdd, for: .normal)
-        logo.image = logoOfGame
-        if let released = game.released {
-            year.text = dateFormatter(released)
+    
+    public func config(game: MainScreenCellData?) {
+        gameLogo = game?.image
+        name.text = game?.name
+        year.text = game?.year
+        logo.image = game?.image
+        rating.text = game?.rating
+        if let color = game?.colorOfButton {
+            buttonAdd.setTitleColor(color, for: .normal)
         }
-        guard let rate = game.rating else {return}
-        rating.text = "\(rate)"
     }
-    func dateFormatter(_ date: String) -> String {
-        let formatterDate = DateFormatter()
-        formatterDate.dateFormat = "yyyy-MM-dd"
-        guard let year = formatterDate.date(from: date) else { return "unknown" }
-        formatterDate.dateFormat = "yyyy"
-        return formatterDate.string(from: year)
-    }
+    
     func cellDesign() {
         mainContainer.backgroundColor = .systemGray6
         mainContainer.layer.cornerRadius = 10
@@ -58,25 +52,19 @@ class TableListOfGameCell: UITableViewCell {
         mainContainer.layer.masksToBounds = false
         logo.layer.cornerRadius = 10
     }
+    
     @IBAction func buttonDetails(_ sender: Any) {
         guard let game = game else { return }
         delegate?.openGameDetails(game)
     }
     @IBAction func addToCollection(_ sender: Any) {
         guard let gameApproved = game else { return }
-        if CoreDataManager.dataManager.receiveItem(gameApproved.id) == nil {
-            CoreDataManager.dataManager.saveItem(id: gameApproved.id, name: gameApproved.name, image: gameLogo)
-            delegate?.stateOfAdd(gameApproved.id, true)
-            buttonAdd.setTitleColor(.gray, for: .normal)
-        } else {
-            CoreDataManager.dataManager.deleteItem(id: gameApproved.id)
-            delegate?.stateOfAdd(gameApproved.id, false)
-            buttonAdd.setTitleColor(.red, for: .normal)
-        }
+        let color = delegate?.stateOfAdd(gameApproved: gameApproved, image: gameLogo)
+        buttonAdd.setTitleColor(color, for: .normal)
     }
 }
 
 protocol TableListOfGameCellDelegate: AnyObject {
     func openGameDetails(_ game: Game)
-    func stateOfAdd(_ id: Int, _ state: Bool)
+    func stateOfAdd(gameApproved: Game, image: UIImage?) -> UIColor
 }

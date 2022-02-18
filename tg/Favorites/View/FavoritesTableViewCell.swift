@@ -12,6 +12,7 @@ class FavoritesTableViewCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     weak var delegate: TableListFavoritesOfGameCellDelegate?
     var id: Int?
+    var indexPath: IndexPath?
 
     @IBAction func deleteFromDatabase(_ sender: Any) {
         guard let realId = id else { return }
@@ -20,5 +21,5 @@ class FavoritesTableViewCell: UITableViewCell {
 }
 
 protocol TableListFavoritesOfGameCellDelegate: AnyObject {
-    func alertDelete(_ id: Int)
+    func alertDelete(_ id: Int) 
 }

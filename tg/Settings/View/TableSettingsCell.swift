@@ -17,11 +17,17 @@ class TableSettingsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    func cellConfig(data: SettingsCellData) {
+        name.text = data.name
+        segmentedControl.setTitle(data.option1, forSegmentAt: 0)
+        segmentedControl.setTitle(data.option2, forSegmentAt: 1)
+        segmentedControl.selectedSegmentIndex = data.selectedOption
+    }
+    
     @IBAction func selectorOfState(_ sender: UISegmentedControl) {
-        delegate?.changeOption(indexPathRow, sender.selectedSegmentIndex)
+        delegate?.handlingCellChangingOption(indexPath: indexPathRow, selectedIndex: sender.selectedSegmentIndex)
     }
 }
 
-protocol TableSettingsCellDelegate: AnyObject {
-    func changeOption(_ indexPathRow: Int, _ selectedIndex: Int)
-}
+

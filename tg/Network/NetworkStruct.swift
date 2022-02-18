@@ -47,9 +47,14 @@ struct Game: Codable, Equatable {
     }
 }
 
+enum typeOfDataCases {
+    case allGames, description, screenshots
+}
+
 extension GamesModel {
     func gameDescription() -> String {
         guard let description = description else { return "no description" }
         return description.replacingOccurrences(of: "<p>", with: "   ").replacingOccurrences(of: "</p>", with: "   ").replacingOccurrences(of: "<br />", with: "   ")
     }
 }
+

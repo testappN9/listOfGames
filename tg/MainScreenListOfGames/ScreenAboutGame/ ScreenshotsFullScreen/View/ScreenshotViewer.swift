@@ -7,36 +7,44 @@
 
 import UIKit
 
-class ScreenshotViewer: UIViewController {
+class ScreenshotViewer: UIViewController, ScreenshotFullPresenterDelegate {
     @IBOutlet weak var imageBackground: UIImageView!
     @IBOutlet weak var collectionOfScreenshots: UICollectionView!
-    var arrayOfScreenshots: [UIImage] = []
-    var activeScreenshot = 0
-    override func viewWillAppear(_ animated: Bool) {
-        UserSettingsRegistration.apply(currentClass: self, table: nil, collection: nil, searchController: nil, tableForHide: nil)
+    var presenter: ScreenshotFullViewDelegate!
+    var selectedScreenshot = 0
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        presenter = ScreenshotFullPresenter(view: self, activeScreenshot: selectedScreenshot)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerCollection()
+        imageBackground.image = presenter.arrayOfScreenshots[presenter.activeScreenshot]
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.applyTheme()
+    }
+    
+    func registerCollection() {
         collectionOfScreenshots.delegate = self
         collectionOfScreenshots.dataSource = self
         collectionOfScreenshots.isPagingEnabled = true
-        imageBackground.image = arrayOfScreenshots[activeScreenshot]
     }
 }
 
 extension ScreenshotViewer: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return arrayOfScreenshots.count
+        return presenter.arrayOfScreenshots.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionOfScreenshots.dequeueReusableCell(withReuseIdentifier: "screenshotCell", for: indexPath) as! BigScreenshotViewCell
-        if indexPath.item + activeScreenshot < arrayOfScreenshots.count {
-            cell.openImage.image = arrayOfScreenshots[indexPath.item + activeScreenshot]
-        } else {
-            cell.openImage.image = arrayOfScreenshots[indexPath.item + activeScreenshot - arrayOfScreenshots.count]
-        }
+        cell.openImage.image = presenter.imageForCell(indexPath: indexPath.item)
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionOfScreenshots.frame.size.width, height: collectionOfScreenshots.frame.size.height)
     }
