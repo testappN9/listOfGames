@@ -23,7 +23,7 @@ class MainScreenPresenter: MainScreenViewDelegate {
     var dictionaryOfLogo = [Int: UIImage]()
     var arrayOfAddedGames = [Int]()
     
-    struct DateFormatModel {
+    struct DateFormatConstants {
         static let before = "yyyy-MM-dd"
         static let after = "yyyy"
         static let incorrectData = "unknown"
@@ -78,9 +78,9 @@ class MainScreenPresenter: MainScreenViewDelegate {
         
         func dateFormatter(_ date: String) -> String {
             let formatterDate = DateFormatter()
-            formatterDate.dateFormat = DateFormatModel.before
-            guard let year = formatterDate.date(from: date) else { return DateFormatModel.incorrectData }
-            formatterDate.dateFormat = DateFormatModel.after
+            formatterDate.dateFormat = DateFormatConstants.before
+            guard let year = formatterDate.date(from: date) else { return DateFormatConstants.incorrectData }
+            formatterDate.dateFormat = DateFormatConstants.after
             return formatterDate.string(from: year)
         }
         return MainScreenCellData(game: game, colorOfButton: colorOfButton, image: image, year: year)
