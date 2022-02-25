@@ -36,7 +36,7 @@ class SettingsViewController: UIViewController, SettingsPresenterDelegate {
     func addingCustomSegmentedControl() {
         viewForSegmentedControl.layoutIfNeeded()
         customSegmentedControl = CustomSegmentedControl(frame: viewForSegmentedControl.bounds)
-        customSegmentedControl?.addSections(labels: ["First!", "Second", "Third", "Fourth"])
+        customSegmentedControl?.setSections(labels: ["First!", "Second", "Third", "Fourth"])
         customSegmentedControl?.setFont(size: 20)
         guard let customControl = customSegmentedControl else { return }
         viewForSegmentedControl.addSubview(customControl)

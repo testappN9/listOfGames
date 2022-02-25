@@ -86,23 +86,13 @@ class CustomSegmentedControl: UIControl {
         sizeOfFont = size
     }
     
-    func addSections(labels: [String]) {
+    func setSections(labels: [String]) {
         arrayOfSections += labels
-    }
-    
-    func deleteSection(index: Int) {
-        if index < arrayOfSections.count {
-            arrayOfSections.remove(at: index)
-        } else {
-            print("index out of range")
-        }
     }
     
     func changeLabel(index: Int, labelText: String) {
         if index < arrayOfSections.count {
             arrayOfSections[index] = labelText
-        } else {
-            print("index out of range")
         }
     }
 }
