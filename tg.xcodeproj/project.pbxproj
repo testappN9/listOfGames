@@ -47,6 +47,7 @@
 		18E0E6C32750FBC80031D7A8 /* TableListOfGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E0E6C12750FBC80031D7A8 /* TableListOfGameCell.xib */; };
 		18F03DCC27AAA8DE002761D5 /* FavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F03DCA27AAA8DE002761D5 /* FavoritesTableViewCell.swift */; };
 		18F03DCD27AAA8DE002761D5 /* FavoritesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F03DCB27AAA8DE002761D5 /* FavoritesTableViewCell.xib */; };
+		3AE2355927C6678F00A4CE95 /* CustomSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE2355827C6678F00A4CE95 /* CustomSegmentedControlView.swift */; };
 		C3C173FBB3D5A4D3A94E134C /* libPods-tg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0C680A2FA3CF2D35FA1503E /* libPods-tg.a */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +94,7 @@
 		18E0E6C12750FBC80031D7A8 /* TableListOfGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableListOfGameCell.xib; sourceTree = "<group>"; };
 		18F03DCA27AAA8DE002761D5 /* FavoritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewCell.swift; sourceTree = "<group>"; };
 		18F03DCB27AAA8DE002761D5 /* FavoritesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoritesTableViewCell.xib; sourceTree = "<group>"; };
+		3AE2355827C6678F00A4CE95 /* CustomSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControlView.swift; sourceTree = "<group>"; };
 		A09D6B86A7476DDF944084BC /* Pods-tg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tg.debug.xcconfig"; path = "Target Support Files/Pods-tg/Pods-tg.debug.xcconfig"; sourceTree = "<group>"; };
 		BF9EA82254B1EF9251B08B9A /* Pods-tg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tg.release.xcconfig"; path = "Target Support Files/Pods-tg/Pods-tg.release.xcconfig"; sourceTree = "<group>"; };
 		F0C680A2FA3CF2D35FA1503E /* libPods-tg.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tg.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -341,6 +343,7 @@
 				18C4737C27677DB600715F2F /* Settings */,
 				18445E382732A6A100D40700 /* Network */,
 				1892803B27AFFD95003DBC76 /* CoreData */,
+				3AE2355A27C6679500A4CE95 /* CustomSegmentedControl */,
 				188F3727272FE9F700E7B5EF /* Assets.xcassets */,
 				188F3729272FE9F700E7B5EF /* LaunchScreen.storyboard */,
 				188F372C272FE9F700E7B5EF /* Info.plist */,
@@ -366,6 +369,14 @@
 				1883F7BD27B9B1FB006646D3 /* Model */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		3AE2355A27C6679500A4CE95 /* CustomSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				3AE2355827C6678F00A4CE95 /* CustomSegmentedControlView.swift */,
+			);
+			path = CustomSegmentedControl;
 			sourceTree = "<group>";
 		};
 		934FE5A59B79E7DDB0F79A54 /* Pods */ = {
@@ -488,6 +499,7 @@
 				183FCD112742E90100CD2C10 /* ScreenshotViewer.swift in Sources */,
 				188F3734272FF22200E7B5EF /* ListOfGamesViewCell.swift in Sources */,
 				1883F7D927B9F53A006646D3 /* MainScreenProtocols.swift in Sources */,
+				3AE2355927C6678F00A4CE95 /* CustomSegmentedControlView.swift in Sources */,
 				1883F7D127B9DE4D006646D3 /* AboutGameProtocols.swift in Sources */,
 				18C4738327677E4E00715F2F /* TableSettingsCell.swift in Sources */,
 				1883F7B927B9A2DC006646D3 /* FavoritesCellData.swift in Sources */,
