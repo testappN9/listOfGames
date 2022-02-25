@@ -12,14 +12,12 @@ class CustomSegmentedControl: UIControl {
     private let viewForSections = UIView()
     private let backgroundView = UIView()
     private let selector = UIView()
-    private var internalState = 1
-    var arrayOfNames = Array(repeating: "empty", count: 10)
-    var currentState = 1
-    var numberOfSection = 2
-    var sizeOfFont: CGFloat = 23
+    private var selectedIndex = 1
+    private var arrayOfSections: [String] = []
+    private var numberOfSections = 2
+    private var sizeOfFont: CGFloat = 23
     
     override func draw(_ rect: CGRect) {
-        
         let width = self.bounds.maxX
         let height = self.bounds.maxY
         let mainFont = UIFont(name: "Chalkduster", size: sizeOfFont)
@@ -35,8 +33,8 @@ class CustomSegmentedControl: UIControl {
     
         createSection(mainFont: mainFont, height: height, fullWidth: width - 20)
         
-        let selectorWidth = (width - 20) / CGFloat(numberOfSection)
-        let selectorPosition = selectorWidth * CGFloat(internalState - 1)
+        let selectorWidth = (width - 20) / CGFloat(numberOfSections)
+        let selectorPosition = selectorWidth * CGFloat(selectedIndex - 1)
         selector.frame = CGRect(x: selectorPosition, y: 0, width: selectorWidth, height: height)
         selector.layer.cornerRadius = height / 2
         selector.layer.borderColor = UIColor.lightGray.cgColor
@@ -50,37 +48,65 @@ class CustomSegmentedControl: UIControl {
         self.addGestureRecognizer(tapGesture)
     }
     
-    func createSection(mainFont: UIFont?, height: CGFloat, fullWidth: CGFloat) {
-        if numberOfSection == 0 {
+    private func createSection(mainFont: UIFont?, height: CGFloat, fullWidth: CGFloat) {
+        numberOfSections = arrayOfSections.count
+        if numberOfSections == 0 {
             return
         }
-        let width = fullWidth / CGFloat(numberOfSection)
-        var count = numberOfSection
-        while count != 0 {
-            let xPoint = width * CGFloat(numberOfSection - count)
+        let width = fullWidth / CGFloat(numberOfSections)
+        
+        for (index, text) in arrayOfSections.enumerated() {
+            print(text)
+            let xPoint = width * CGFloat(index)
             let label = UILabel()
             label.textAlignment = .center
             label.textColor = UIColor.lightGray
-            label.text = arrayOfNames[numberOfSection - count]
+            label.text = text
             label.font = mainFont
             label.frame = CGRect(x: xPoint, y: 0, width: width, height: height)
             viewForSections.addSubview(label)
-            count -= 1
         }
     }
     
-    @objc func handleTap(sender: UITapGestureRecognizer) {
+    @objc private func handleTap(sender: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseInOut]) {
-            if self.internalState == self.numberOfSection {
-                self.internalState = 1
+            if self.selectedIndex == self.numberOfSections {
+                self.selectedIndex = 1
                 self.selector.frame.origin.x = 0
             } else {
-                self.internalState += 1
+                self.selectedIndex += 1
                 self.selector.frame.origin.x += self.selector.frame.width
             }
         }
-        currentState = internalState
         self.sendActions(for: UIControl.Event.touchUpInside)
+    }
+    
+    func getSelectedIndex() -> Int {
+        return selectedIndex
+    }
+    
+    func font(size: CGFloat) {
+        sizeOfFont = size
+    }
+    
+    func addSection(label: String) {
+        arrayOfSections.append(label)
+    }
+    
+    func deleteSection(index: Int) {
+        if index < arrayOfSections.count {
+            arrayOfSections.remove(at: index)
+        } else {
+            print("index out of range")
+        }
+    }
+    
+    func changeLabel(index: Int, labelText: String) {
+        if index < arrayOfSections.count {
+            arrayOfSections[index] = labelText
+        } else {
+            print("index out of range")
+        }
     }
 }
 
