@@ -14,7 +14,6 @@ class CustomSegmentedControl: UIControl {
     private let selector = UIView()
     private var selectedIndex = 1
     private var arrayOfSections: [String] = []
-    private var numberOfSections = 2
     private var sizeOfFont: CGFloat = 23
     
     override func draw(_ rect: CGRect) {
@@ -33,7 +32,7 @@ class CustomSegmentedControl: UIControl {
     
         createSection(mainFont: mainFont, height: height, fullWidth: width - 20)
         
-        let selectorWidth = (width - 20) / CGFloat(numberOfSections)
+        let selectorWidth = (width - 20) / CGFloat(arrayOfSections.count)
         let selectorPosition = selectorWidth * CGFloat(selectedIndex - 1)
         selector.frame = CGRect(x: selectorPosition, y: 0, width: selectorWidth, height: height)
         selector.layer.cornerRadius = height / 2
@@ -49,14 +48,12 @@ class CustomSegmentedControl: UIControl {
     }
     
     private func createSection(mainFont: UIFont?, height: CGFloat, fullWidth: CGFloat) {
-        numberOfSections = arrayOfSections.count
-        if numberOfSections == 0 {
+        if arrayOfSections.count == 0 {
             return
         }
-        let width = fullWidth / CGFloat(numberOfSections)
+        let width = fullWidth / CGFloat(arrayOfSections.count)
         
         for (index, text) in arrayOfSections.enumerated() {
-            print(text)
             let xPoint = width * CGFloat(index)
             let label = UILabel()
             label.textAlignment = .center
@@ -70,7 +67,7 @@ class CustomSegmentedControl: UIControl {
     
     @objc private func handleTap(sender: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseInOut]) {
-            if self.selectedIndex == self.numberOfSections {
+            if self.selectedIndex == self.arrayOfSections.count {
                 self.selectedIndex = 1
                 self.selector.frame.origin.x = 0
             } else {
@@ -85,12 +82,12 @@ class CustomSegmentedControl: UIControl {
         return selectedIndex
     }
     
-    func font(size: CGFloat) {
+    func setFont(size: CGFloat) {
         sizeOfFont = size
     }
     
-    func addSection(label: String) {
-        arrayOfSections.append(label)
+    func addSections(labels: [String]) {
+        arrayOfSections += labels
     }
     
     func deleteSection(index: Int) {

@@ -36,11 +36,8 @@ class SettingsViewController: UIViewController, SettingsPresenterDelegate {
     func addingCustomSegmentedControl() {
         viewForSegmentedControl.layoutIfNeeded()
         customSegmentedControl = CustomSegmentedControl(frame: viewForSegmentedControl.bounds)
-        customSegmentedControl?.addSection(label: "First!")
-        customSegmentedControl?.addSection(label: "Second")
-        customSegmentedControl?.addSection(label: "Third")
-        customSegmentedControl?.addSection(label: "Fourth")
-        customSegmentedControl?.font(size: 20)
+        customSegmentedControl?.addSections(labels: ["First!", "Second", "Third", "Fourth"])
+        customSegmentedControl?.setFont(size: 20)
         guard let customControl = customSegmentedControl else { return }
         viewForSegmentedControl.addSubview(customControl)
         customSegmentedControl?.addTarget(self, action: #selector(handleTap(sender:)), for: .touchUpInside)
