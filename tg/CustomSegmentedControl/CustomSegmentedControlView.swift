@@ -87,7 +87,7 @@ class CustomSegmentedControl: UIControl {
     }
     
     func setSections(labels: [String]) {
-        arrayOfSections += labels
+        arrayOfSections = labels
     }
     
     func changeLabel(index: Int, labelText: String) {
