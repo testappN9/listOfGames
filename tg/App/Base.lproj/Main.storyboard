@@ -413,6 +413,38 @@
             </objects>
             <point key="canvasLocation" x="3278" y="75"/>
         </scene>
+        <!--Password View Controller-->
+        <scene sceneID="p37-gC-ctz">
+            <objects>
+                <viewController restorationIdentifier="passwordVC" storyboardIdentifier="passwordVC" id="viL-Zh-CSC" customClass="PasswordViewController" customModule="tg" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="55s-OD-aba">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ra8-a4-bvq">
+                                <rect key="frame" x="40" y="378" width="334" height="140"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Ra8-a4-bvq" secondAttribute="height" multiplier="167:70" id="0wR-NE-OFt"/>
+                                    <constraint firstAttribute="width" constant="334" id="LwP-qJ-aSd"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="2s0-r0-L6A"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Ra8-a4-bvq" firstAttribute="centerY" secondItem="55s-OD-aba" secondAttribute="centerY" id="73m-Uc-VkH"/>
+                            <constraint firstItem="Ra8-a4-bvq" firstAttribute="centerX" secondItem="55s-OD-aba" secondAttribute="centerX" id="vFH-tw-AXz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="viewForPasswordField" destination="Ra8-a4-bvq" id="A8m-8j-2i9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0pn-25-E5X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4006" y="75"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="WGc-cx-3Ch">
             <objects>

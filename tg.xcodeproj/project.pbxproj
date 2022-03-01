@@ -47,6 +47,8 @@
 		18E0E6C32750FBC80031D7A8 /* TableListOfGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E0E6C12750FBC80031D7A8 /* TableListOfGameCell.xib */; };
 		18F03DCC27AAA8DE002761D5 /* FavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F03DCA27AAA8DE002761D5 /* FavoritesTableViewCell.swift */; };
 		18F03DCD27AAA8DE002761D5 /* FavoritesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18F03DCB27AAA8DE002761D5 /* FavoritesTableViewCell.xib */; };
+		3AE0EE0627CCBDD200CBCADD /* CustomPinField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0EE0527CCBDD200CBCADD /* CustomPinField.swift */; };
+		3AE0EE0927CCC21000CBCADD /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE0EE0827CCC21000CBCADD /* PasswordViewController.swift */; };
 		3AE2355927C6678F00A4CE95 /* CustomSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE2355827C6678F00A4CE95 /* CustomSegmentedControlView.swift */; };
 		C3C173FBB3D5A4D3A94E134C /* libPods-tg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0C680A2FA3CF2D35FA1503E /* libPods-tg.a */; };
 /* End PBXBuildFile section */
@@ -94,6 +96,8 @@
 		18E0E6C12750FBC80031D7A8 /* TableListOfGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableListOfGameCell.xib; sourceTree = "<group>"; };
 		18F03DCA27AAA8DE002761D5 /* FavoritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewCell.swift; sourceTree = "<group>"; };
 		18F03DCB27AAA8DE002761D5 /* FavoritesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoritesTableViewCell.xib; sourceTree = "<group>"; };
+		3AE0EE0527CCBDD200CBCADD /* CustomPinField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPinField.swift; sourceTree = "<group>"; };
+		3AE0EE0827CCC21000CBCADD /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		3AE2355827C6678F00A4CE95 /* CustomSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControlView.swift; sourceTree = "<group>"; };
 		A09D6B86A7476DDF944084BC /* Pods-tg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tg.debug.xcconfig"; path = "Target Support Files/Pods-tg/Pods-tg.debug.xcconfig"; sourceTree = "<group>"; };
 		BF9EA82254B1EF9251B08B9A /* Pods-tg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tg.release.xcconfig"; path = "Target Support Files/Pods-tg/Pods-tg.release.xcconfig"; sourceTree = "<group>"; };
@@ -344,6 +348,7 @@
 				18445E382732A6A100D40700 /* Network */,
 				1892803B27AFFD95003DBC76 /* CoreData */,
 				3AE2355A27C6679500A4CE95 /* CustomSegmentedControl */,
+				3AE0EE0727CCBDDA00CBCADD /* CustomPinField */,
 				188F3727272FE9F700E7B5EF /* Assets.xcassets */,
 				188F3729272FE9F700E7B5EF /* LaunchScreen.storyboard */,
 				188F372C272FE9F700E7B5EF /* Info.plist */,
@@ -369,6 +374,15 @@
 				1883F7BD27B9B1FB006646D3 /* Model */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		3AE0EE0727CCBDDA00CBCADD /* CustomPinField */ = {
+			isa = PBXGroup;
+			children = (
+				3AE0EE0527CCBDD200CBCADD /* CustomPinField.swift */,
+				3AE0EE0827CCC21000CBCADD /* PasswordViewController.swift */,
+			);
+			path = CustomPinField;
 			sourceTree = "<group>";
 		};
 		3AE2355A27C6679500A4CE95 /* CustomSegmentedControl */ = {
@@ -506,6 +520,7 @@
 				1883F7BF27B9B24A006646D3 /* SettingsPresenter.swift in Sources */,
 				188F371F272FE9F400E7B5EF /* AppDelegate.swift in Sources */,
 				188F3721272FE9F400E7B5EF /* SceneDelegate.swift in Sources */,
+				3AE0EE0627CCBDD200CBCADD /* CustomPinField.swift in Sources */,
 				18093A1527A8AC370000A0F6 /* FavoritesViewController.swift in Sources */,
 				1832D618273A7A4800445BDF /* NetworkManager.swift in Sources */,
 				1883F7DB27BA0346006646D3 /* MainScreenCellData.swift in Sources */,
@@ -519,6 +534,7 @@
 				18A2B9C6273D54EC00814DC5 /* CollectionScreenshotsCell.swift in Sources */,
 				18F03DCC27AAA8DE002761D5 /* FavoritesTableViewCell.swift in Sources */,
 				187E3D242743128B00CD433E /* BigScreenshotViewCell.swift in Sources */,
+				3AE0EE0927CCC21000CBCADD /* PasswordViewController.swift in Sources */,
 				18C4737B276771C900715F2F /* SettingsViewController.swift in Sources */,
 				1883F7C827B9D276006646D3 /* ScreenshotFullPresenter.swift in Sources */,
 				1883F7D627B9F516006646D3 /* MainScreenPresenter.swift in Sources */,

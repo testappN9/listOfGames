@@ -23,6 +23,7 @@ class SettingsViewController: UIViewController, SettingsPresenterDelegate {
         userPhoto.layer.cornerRadius = CGFloat(presenter.photoRadius)
         presenter.applyTheme()
         addingCustomSegmentedControl()
+        showPasswordViewController()
     }
     
     func registerTableSettings() {
@@ -41,6 +42,13 @@ class SettingsViewController: UIViewController, SettingsPresenterDelegate {
         guard let customControl = customSegmentedControl else { return }
         viewForSegmentedControl.addSubview(customControl)
         customSegmentedControl?.addTarget(self, action: #selector(handleTap(sender:)), for: .touchUpInside)
+    }
+    
+    func showPasswordViewController() {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        if let passwordVC = mainStoryboard.instantiateViewController(identifier: "passwordVC") as? PasswordViewController {
+            navigationController?.pushViewController(passwordVC, animated: true)
+        }
     }
     
     @objc func handleTap(sender: CustomSegmentedControl.Event) {
